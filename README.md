@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-[![Build Status](https://travis-ci.org/kodi-pvr/pvr.lifesat.svg?branch=master)](https://travis-ci.org/kodi-pvr/pvr.lifesat)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
-
 # LifeSat PVR
 LifeSat PVR client addon for [Kodi] (http://kodi.tv)
 
@@ -22,4 +18,3 @@ LifeSat PVR client addon for [Kodi] (http://kodi.tv)
 =======
 # pvr.lifesat
 LifeSat Iptv from KODI
->>>>>>> 9feda6a5bd8fdd0e7468d26dfc1add1dc86f8dc3
