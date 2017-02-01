@@ -1,17 +1,17 @@
-[![Build Status](https://travis-ci.org/kodi-pvr/pvr.dvblink.svg?branch=master)](https://travis-ci.org/kodi-pvr/pvr.dvblink)
+[![Build Status](https://travis-ci.org/kodi-pvr/pvr.lifesat.svg?branch=master)](https://travis-ci.org/kodi-pvr/pvr.lifesat)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5120/badge.svg)](https://scan.coverity.com/projects/5120)
 
-# DVBLink PVR
-DVBLink PVR client addon for [Kodi] (http://kodi.tv)
+# LifeSat PVR
+LifeSat PVR client addon for [Kodi] (http://kodi.tv)
 
 ## Build instructions
 
 ### Linux
 
 1. `git clone https://github.com/xbmc/xbmc.git`
-2. `git clone https://github.com/kodi-pvr/pvr.dvblink.git`
-3. `cd pvr.dvblink && mkdir build && cd build`
-4. `cmake -DADDONS_TO_BUILD=pvr.dvblink -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/project/cmake/addons`
+2. `git clone https://github.com/kodi-pvr/pvr.lifesat.git`
+3. `cd pvr.lifesat && mkdir build && cd build`
+4. `cmake -DADDONS_TO_BUILD=pvr.lifesat -DADDON_SRC_PREFIX=../.. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../xbmc/addons -DPACKAGE_ZIP=1 ../../xbmc/project/cmake/addons`
 5. `make`
 
 ##### Useful links
