@@ -24,8 +24,8 @@
 #include "scheduling.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 Schedule::Schedule()
 {

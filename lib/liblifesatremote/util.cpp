@@ -23,7 +23,7 @@
 
 #include "util.h"
 
-using namespace dvblinkremote;
+using namespace lifesatremote;
 
 template <class T> 
 bool Util::from_string(T& t, const std::string& s, std::ios_base& (*f)(std::ios_base&))

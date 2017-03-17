@@ -21,9 +21,9 @@
  *
  ***************************************************************************/
 
-#include "dvblinkremotehttp.h"
+#include "lifesatremotehttp.h"
 
-using namespace dvblinkremotehttp;
+using namespace lifesatremotehttp;
 
 HttpWebRequest::HttpWebRequest(const std::string& url)
   : m_url(url)

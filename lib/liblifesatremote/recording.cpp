@@ -24,8 +24,8 @@
 #include "response.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 Recording::Recording(const std::string& id, const std::string& scheduleId, const std::string& channelId, const Program* program)
   : m_id(id), 

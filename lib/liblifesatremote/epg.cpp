@@ -24,8 +24,8 @@
 #include "request.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 const long EpgSearchRequest::EPG_SEARCH_TIME_NOT_BOUND = -1;
 
@@ -222,7 +222,7 @@ bool EpgSearchResponseSerializer::ChannelEpgXmlDataDeserializer::VisitEnter(cons
       ChannelEpgData* channelEpgData = new ChannelEpgData(channelId);
 
       ProgramListXmlDataDeserializer* xmlDataDeserializer = new ProgramListXmlDataDeserializer(m_parent, *channelEpgData);
-      element.FirstChildElement("dvblink_epg")->Accept(xmlDataDeserializer);
+      element.FirstChildElement("lifesat_epg")->Accept(xmlDataDeserializer);
       delete xmlDataDeserializer;
 
       m_epgSearchResult.push_back(channelEpgData);

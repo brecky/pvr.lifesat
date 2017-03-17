@@ -21,12 +21,12 @@
  *
  ***************************************************************************/
 
-#include "dvblinkremote.h"
+#include "lifesatremote.h"
 #include "request.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 StreamRequest::StreamRequest(const std::string& serverAddress, const long dvbLinkChannelId, const std::string& clientId, const std::string& streamType)
   : m_serverAddress(serverAddress), 
@@ -173,7 +173,7 @@ bool StreamRequestSerializer::WriteObject(std::string& serializedData, StreamReq
 {
   tinyxml2::XMLElement* rootElement = PrepareXmlDocumentForObjectSerialization("stream");
 
-  rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "channel_dvblink_id", objectGraph.GetDVBLinkChannelID()));
+  rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "channel_lifesat_id", objectGraph.GetDVBLinkChannelID()));
   rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "client_id", objectGraph.GetClientID()));
   rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "stream_type", objectGraph.GetStreamType()));
   rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "server_address", objectGraph.GetServerAddress()));

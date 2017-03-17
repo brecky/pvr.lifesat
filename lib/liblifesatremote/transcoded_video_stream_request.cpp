@@ -23,7 +23,7 @@
 
 #include "request.h"
 
-using namespace dvblinkremote;
+using namespace lifesatremote;
 
 TranscodedVideoStreamRequest::TranscodedVideoStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, TranscodingOptions& transcodingOptions, const std::string& streamType)
   : m_transcodingOptions(transcodingOptions), StreamRequest(serverAddress, channelDvbLinkId, clientId, streamType)

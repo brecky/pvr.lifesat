@@ -24,8 +24,8 @@
 #include "request.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 StopStreamRequest::StopStreamRequest(long channelHandle) 
   : m_channelHandle(channelHandle), m_clientId("")

@@ -25,8 +25,8 @@
 #include "response.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 GetPlaybackObjectRequest::GetPlaybackObjectRequest(const std::string& serverAddress)
   : m_serverAddress(serverAddress), 

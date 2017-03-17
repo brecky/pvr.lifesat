@@ -1,2 +1,6 @@
+[B]1.0.3[/B]
+Rename Lib and fix dirname
+[B]1.0.2[/B]
+Rename Project
 [B]1.0.1[/B]
 Beta release

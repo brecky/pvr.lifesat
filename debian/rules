@@ -16,8 +16,8 @@ override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1
 
 override_dh_strip:
-	dh_strip -pkodi-pvr-dvblink --dbg-package=kodi-pvr-dvblink-dbg
+	dh_strip -pkodi-pvr-lifesat --dbg-package=kodi-pvr-lifesat-dbg
 
 override_dh_installdocs:
-	dh_installdocs --link-doc=kodi-pvr-dvblink
+	dh_installdocs --link-doc=kodi-pvr-lifesat
 

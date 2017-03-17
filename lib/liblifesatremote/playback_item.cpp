@@ -24,8 +24,8 @@
 #include "response.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 PlaybackItem::PlaybackItem(const DVBLinkPlaybackItemType itemType, const std::string& objectId, const std::string& parentId, const std::string& playbackUrl, const std::string& thumbnailUrl, const ItemMetadata* metadata)
   : PlaybackObject(PlaybackObject::PLAYBACK_OBJECT_TYPE_ITEM, objectId, parentId),

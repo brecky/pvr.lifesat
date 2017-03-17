@@ -23,7 +23,7 @@
 
 #include "request.h"
 
-using namespace dvblinkremote;
+using namespace lifesatremote;
 
 TranscodingOptions::TranscodingOptions(const unsigned int width, const unsigned int height) 
   : m_width(width), m_height(height) 

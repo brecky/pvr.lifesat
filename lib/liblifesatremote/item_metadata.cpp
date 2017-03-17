@@ -24,8 +24,8 @@
 #include "response.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 ItemMetadata::ItemMetadata() 
 {
@@ -203,7 +203,7 @@ void ItemMetadata::SetDuration(const long duration)
   m_duration = duration; 
 }
 
-void ItemMetadataSerializer::Deserialize(XmlObjectSerializer<Response>& objectSerializer, const tinyxml2::XMLElement& element, dvblinkremote::ItemMetadata& itemMetadata)
+void ItemMetadataSerializer::Deserialize(XmlObjectSerializer<Response>& objectSerializer, const tinyxml2::XMLElement& element, lifesatremote::ItemMetadata& itemMetadata)
 {
   itemMetadata.SetTitle(Util::GetXmlFirstChildElementText(&element, "name"));
   itemMetadata.SetStartTime(Util::GetXmlFirstChildElementTextAsLong(&element, "start_time"));

@@ -22,14 +22,14 @@
  ***************************************************************************/
 
 #include <cstdarg>
-#include "dvblinkremoteconnection.h"
+#include "lifesatremoteconnection.h"
 #include "xml_object_serializer.h"
 #include "generic_response.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
-DVBLinkRemoteCommunication::DVBLinkRemoteCommunication(dvblinkremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, DVBLinkRemoteLocker* locker)
+DVBLinkRemoteCommunication::DVBLinkRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, DVBLinkRemoteLocker* locker)
   : m_httpClient(httpClient), 
     m_hostAddress(hostAddress), 
     m_port(port),
@@ -39,7 +39,7 @@ DVBLinkRemoteCommunication::DVBLinkRemoteCommunication(dvblinkremotehttp::HttpCl
   m_password = "";
 }
 
-DVBLinkRemoteCommunication::DVBLinkRemoteCommunication(dvblinkremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, DVBLinkRemoteLocker* locker)
+DVBLinkRemoteCommunication::DVBLinkRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, DVBLinkRemoteLocker* locker)
   : m_httpClient(httpClient), 
     m_hostAddress(hostAddress), 
     m_port(port), 
@@ -97,7 +97,7 @@ std::string DVBLinkRemoteCommunication::GetStatusCodeDescription(DVBLinkRemoteSt
 
 void DVBLinkRemoteCommunication::GetLastError(std::string& err)
 {
-  m_errorBuffer[dvblinkremote::DVBLINK_REMOTE_DEFAULT_BUFFER_SIZE - 1] = dvblinkremote::DVBLINK_REMOTE_EOF;
+  m_errorBuffer[lifesatremote::DVBLINK_REMOTE_DEFAULT_BUFFER_SIZE - 1] = lifesatremote::DVBLINK_REMOTE_EOF;
   err.assign(m_errorBuffer);
 }
 
@@ -279,7 +279,7 @@ DVBLinkRemoteStatusCode DVBLinkRemoteCommunication::GetData(const std::string& c
 
   std::string requestData = CreateRequestDataParameter(command, xmlData);
 
-  dvblinkremotehttp::HttpWebRequest* httpRequest = new dvblinkremotehttp::HttpWebRequest(GetUrl());
+  lifesatremotehttp::HttpWebRequest* httpRequest = new lifesatremotehttp::HttpWebRequest(GetUrl());
   httpRequest->Method = DVBLINK_REMOTE_HTTP_METHOD;
   httpRequest->ContentType = DVBLINK_REMOTE_HTTP_CONTENT_TYPE;
   httpRequest->ContentLength = requestData.length();
@@ -292,7 +292,7 @@ DVBLinkRemoteStatusCode DVBLinkRemoteCommunication::GetData(const std::string& c
     WriteError("HTTP request failed with error code %d (%s).\n", status, GetStatusCodeDescription(status).c_str());
   }
   else {
-    dvblinkremotehttp::HttpWebResponse* httpResponse = m_httpClient.GetResponse();
+    lifesatremotehttp::HttpWebResponse* httpResponse = m_httpClient.GetResponse();
 
     if (httpResponse->GetStatusCode() == 401) {
       status = DVBLINK_REMOTE_STATUS_UNAUTHORISED;
@@ -373,5 +373,5 @@ void DVBLinkRemoteCommunication::WriteError(const char* format, ...)
 
 void DVBLinkRemoteCommunication::ClearErrorBuffer()
 {
-  memset(m_errorBuffer, 0, dvblinkremote::DVBLINK_REMOTE_EOF);
+  memset(m_errorBuffer, 0, lifesatremote::DVBLINK_REMOTE_EOF);
 }

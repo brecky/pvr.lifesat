@@ -21,21 +21,21 @@
  *
  ***************************************************************************/
 
-#include "dvblinkremote.h"
-#include "dvblinkremoteconnection.h"
+#include "lifesatremote.h"
+#include "lifesatremoteconnection.h"
 
-using namespace dvblinkremote;
+using namespace lifesatremote;
 
 IDVBLinkRemoteConnection::~IDVBLinkRemoteConnection()
 {
 }
 
-IDVBLinkRemoteConnection* DVBLinkRemote::Connect(dvblinkremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, DVBLinkRemoteLocker* locker)
+IDVBLinkRemoteConnection* DVBLinkRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, DVBLinkRemoteLocker* locker)
 {
     return new DVBLinkRemoteCommunication(httpClient, hostAddress, port, locker);
 }
 
-IDVBLinkRemoteConnection* DVBLinkRemote::Connect(dvblinkremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, DVBLinkRemoteLocker* locker)
+IDVBLinkRemoteConnection* DVBLinkRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, DVBLinkRemoteLocker* locker)
 {
     return new DVBLinkRemoteCommunication(httpClient, hostAddress, port, username, password, locker);
 }

@@ -5,9 +5,9 @@ ENABLE_LANGUAGE(CXX)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET(SOURCES channel.cpp
-            dvblinkremotecommunication.cpp
-            dvblinkremote.cpp
-            dvblinkremotehttp.cpp
+            lifesatremotecommunication.cpp
+            lifesatremote.cpp
+            lifesatremotehttp.cpp
             epg.cpp
             favorites.cpp
             generic_response.cpp

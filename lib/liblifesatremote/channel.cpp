@@ -25,8 +25,8 @@
 #include "response.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 Channel::Channel(const std::string& id, const long dvbLinkId, const std::string& name, const DVBLinkChannelType type, 
                  const std::string& logo_url, const int number, const int subNumber) 
@@ -150,7 +150,7 @@ bool GetChannelsResponseSerializer::GetChannelsResponseXmlDataDeserializer::Visi
 {
   if (strcmp(element.Name(), "channel") == 0) 
   {     
-    long channelDvbLinkId = Util::GetXmlFirstChildElementTextAsLong(&element, "channel_dvblink_id");
+    long channelDvbLinkId = Util::GetXmlFirstChildElementTextAsLong(&element, "channel_lifesat_id");
     std::string channelId = Util::GetXmlFirstChildElementText(&element, "channel_id");
     std::string channelName = Util::GetXmlFirstChildElementText(&element, "channel_name");
     int channelNumber = Util::GetXmlFirstChildElementTextAsInt(&element, "channel_number");

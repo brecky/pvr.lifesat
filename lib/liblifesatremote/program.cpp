@@ -24,8 +24,8 @@
 #include "response.h"
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremote;
-using namespace dvblinkremoteserialization;
+using namespace lifesatremote;
+using namespace lifesatremoteserialization;
 
 Program::Program()
   : ItemMetadata(),
@@ -63,7 +63,7 @@ void Program::SetID(const std::string& id)
   m_id = id; 
 }
 
-void ProgramSerializer::Deserialize(XmlObjectSerializer<Response>& objectSerializer, const tinyxml2::XMLElement& element, dvblinkremote::Program& program)
+void ProgramSerializer::Deserialize(XmlObjectSerializer<Response>& objectSerializer, const tinyxml2::XMLElement& element, lifesatremote::Program& program)
 {
   ItemMetadataSerializer::Deserialize(objectSerializer, element, (ItemMetadata&)program);
   program.SetID(Util::GetXmlFirstChildElementText(&element, "program_id"));

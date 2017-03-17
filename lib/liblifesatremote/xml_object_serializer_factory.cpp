@@ -23,7 +23,7 @@
 
 #include "xml_object_serializer.h"
 
-using namespace dvblinkremoteserialization;
+using namespace lifesatremoteserialization;
 
 bool XmlObjectSerializerFactory::Serialize(const std::string& dvbLinkCommand, const Request& request, std::string& serializedData)
 {
