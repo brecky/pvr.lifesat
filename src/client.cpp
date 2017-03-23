@@ -26,7 +26,7 @@
 #include "client.h"
 #include "xbmc_pvr_dll.h"
 #include "libKODI_guilib.h"
-#include "DVBLinkClient.h"
+#include "LifeSatClient.h"
 #include "p8-platform/util/util.h"
 #include "p8-platform/util/timeutils.h"
 #include "RecordingStreamer.h"
@@ -44,13 +44,13 @@ ADDON_STATUS   m_CurStatus          = ADDON_STATUS_UNKNOWN;
 std::string g_strUserPath           = "";
 std::string g_strClientPath         = "";
 
-DVBLinkClient* dvblinkclient          = NULL;
+LifeSatClient* lifesatclient          = NULL;
 RecordingStreamer* recording_streamer = NULL;
 
 std::string g_szHostname            = DEFAULT_HOST;                  ///< The Host name or IP of the DVBLink Server
 long        g_lPort                 = DEFAULT_PORT;                  ///< The DVBLink Connect Server listening port (default: 8080)
 bool        g_bUseTranscoding		    = DEFAULT_USETRANSCODING;        ///< Use transcoding
-std::string g_szClientname;                                          ///< Name of dvblink client
+std::string g_szClientname;                                          ///< Name of lifesat client
 std::string g_szUsername            = DEFAULT_USERNAME;              ///< Username
 std::string g_szPassword            = DEFAULT_PASSWORD;              ///< Password
 bool        g_bShowInfoMSG          = DEFAULT_SHOWINFOMSG;           ///< Show information messages
@@ -273,10 +273,10 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   XBMC->Log(LOG_DEBUG, "settings: enable_transcoding='%i' host='%s', port=%i", g_bUseTranscoding, g_szHostname.c_str(),
       g_lPort);
 
-  dvblinkclient = new DVBLinkClient(XBMC, PVR, GUI, g_szClientname, g_szHostname, g_lPort, g_bShowInfoMSG, g_szUsername,
+  lifesatclient = new LifeSatClient(XBMC, PVR, GUI, g_szClientname, g_szHostname, g_lPort, g_bShowInfoMSG, g_szUsername,
       g_szPassword, g_bAddRecEpisode2title, g_bGroupRecBySeries, g_bNoGroupSingleRec);
 
-  if (dvblinkclient->GetStatus())
+  if (lifesatclient->GetStatus())
     m_CurStatus = ADDON_STATUS_OK;
   else
     m_CurStatus = ADDON_STATUS_LOST_CONNECTION;
@@ -291,7 +291,7 @@ ADDON_STATUS ADDON_GetStatus()
 
 void ADDON_Destroy()
 {
-  delete dvblinkclient;
+  delete lifesatclient;
   m_CurStatus = ADDON_STATUS_UNKNOWN;
   SAFE_DELETE(PVR);
   SAFE_DELETE(XBMC);
@@ -502,11 +502,11 @@ const char *GetBackendHostname(void)
 
 PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 {
-  if (dvblinkclient)
+  if (lifesatclient)
   {
-    if (dvblinkclient->GetStatus())
+    if (lifesatclient->GetStatus())
     {
-      dvblinkclient->GetDriveSpace(iTotal, iUsed);
+      lifesatclient->GetDriveSpace(iTotal, iUsed);
       return PVR_ERROR_NO_ERROR;
     }
   }
@@ -515,11 +515,11 @@ PVR_ERROR GetDriveSpace(long long *iTotal, long long *iUsed)
 
 PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
 {
-  if (dvblinkclient)
+  if (lifesatclient)
   {
-    if (dvblinkclient->GetStatus())
+    if (lifesatclient->GetStatus())
     {
-      return dvblinkclient->GetEPGForChannel(handle, channel, iStart, iEnd);
+      return lifesatclient->GetEPGForChannel(handle, channel, iStart, iEnd);
     }
   }
 
@@ -528,11 +528,11 @@ PVR_ERROR GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time
 
 int GetChannelsAmount(void)
 {
-  if (dvblinkclient)
+  if (lifesatclient)
   {
-    if (dvblinkclient->GetStatus())
+    if (lifesatclient->GetStatus())
     {
-      return dvblinkclient->GetChannelsAmount();
+      return lifesatclient->GetChannelsAmount();
     }
     else
     {
@@ -544,11 +544,11 @@ int GetChannelsAmount(void)
 
 PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
 {
-  if (dvblinkclient)
+  if (lifesatclient)
   {
-    if (dvblinkclient->GetStatus())
+    if (lifesatclient->GetStatus())
     {
-      return dvblinkclient->GetChannels(handle, bRadio);
+      return lifesatclient->GetChannels(handle, bRadio);
     }
   }
 
@@ -559,16 +559,16 @@ PVR_ERROR GetChannels(ADDON_HANDLE handle, bool bRadio)
 
 bool OpenLiveStream(const PVR_CHANNEL &channel)
 {
-  if (dvblinkclient)
-    return dvblinkclient->OpenLiveStream(channel, g_bUseTimeshift, g_bUseTranscoding, g_iWidth, g_iHeight, g_iBitrate,
+  if (lifesatclient)
+    return lifesatclient->OpenLiveStream(channel, g_bUseTimeshift, g_bUseTranscoding, g_iWidth, g_iHeight, g_iBitrate,
         g_szAudiotrack);
   return false;
 }
 
 void CloseLiveStream(void)
 {
-  if (dvblinkclient)
-    dvblinkclient->StopStreaming(true);
+  if (lifesatclient)
+    lifesatclient->StopStreaming(true);
 }
 
 const char * GetLiveStreamURL(const PVR_CHANNEL &channel)
@@ -579,50 +579,50 @@ const char * GetLiveStreamURL(const PVR_CHANNEL &channel)
 
 int ReadLiveStream(unsigned char *pBuffer, unsigned int iBufferSize)
 {
-  if (dvblinkclient)
-    return dvblinkclient->ReadLiveStream(pBuffer, iBufferSize);
+  if (lifesatclient)
+    return lifesatclient->ReadLiveStream(pBuffer, iBufferSize);
   return 0;
 }
 
 long long SeekLiveStream(long long iPosition, int iWhence /* = SEEK_SET */)
 {
-  if (dvblinkclient)
-    return dvblinkclient->SeekLiveStream(iPosition, iWhence);
+  if (lifesatclient)
+    return lifesatclient->SeekLiveStream(iPosition, iWhence);
   return -1;
 }
 
 long long PositionLiveStream(void)
 {
-  if (dvblinkclient)
-    return dvblinkclient->PositionLiveStream();
+  if (lifesatclient)
+    return lifesatclient->PositionLiveStream();
   return -1;
 }
 
 long long LengthLiveStream(void)
 {
-  if (dvblinkclient)
-    return dvblinkclient->LengthLiveStream();
+  if (lifesatclient)
+    return lifesatclient->LengthLiveStream();
   return -1;
 }
 
 time_t GetPlayingTime()
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetPlayingTime();
+  if (lifesatclient)
+    return lifesatclient->GetPlayingTime();
   return 0;
 }
 
 time_t GetBufferTimeStart()
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetBufferTimeStart();
+  if (lifesatclient)
+    return lifesatclient->GetBufferTimeStart();
   return 0;
 }
 
 time_t GetBufferTimeEnd()
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetBufferTimeEnd();
+  if (lifesatclient)
+    return lifesatclient->GetBufferTimeEnd();
   return 0;
 }
 
@@ -640,23 +640,23 @@ bool CanSeekStream(void)
   return g_bUseTimeshift;
 }
 
-static bool dvblink_is_live()
+static bool lifesat_is_live()
 {
-  if (dvblinkclient)
+  if (lifesatclient)
   {
-    return (dvblinkclient->GetBufferTimeEnd() - dvblinkclient->GetPlayingTime()) < 3; //add a margin of 3 seconds to the definition of "live"
+    return (lifesatclient->GetBufferTimeEnd() - lifesatclient->GetPlayingTime()) < 3; //add a margin of 3 seconds to the definition of "live"
   }
   return true;
 }
 
 bool IsRealTimeStream()
 {
-  return !g_bUseTimeshift || dvblink_is_live();
+  return !g_bUseTimeshift || lifesat_is_live();
 }
 
 bool IsTimeshifting(void)
 {
-  return g_bUseTimeshift && !dvblink_is_live();
+  return g_bUseTimeshift && !lifesat_is_live();
 }
 
 PVR_ERROR SetEPGTimeFrame(int iDays)
@@ -669,16 +669,16 @@ PVR_ERROR SetEPGTimeFrame(int iDays)
 
 PVR_ERROR GetTimerTypes(PVR_TIMER_TYPE types[], int *size)
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetTimerTypes(types, size);
+  if (lifesatclient)
+    return lifesatclient->GetTimerTypes(types, size);
 
   return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
 int GetTimersAmount(void)
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetTimersAmount();
+  if (lifesatclient)
+    return lifesatclient->GetTimersAmount();
 
   return -1;
 }
@@ -686,56 +686,56 @@ int GetTimersAmount(void)
 PVR_ERROR GetTimers(ADDON_HANDLE handle)
 {
   /* TODO: Change implementation to get support for the timer features introduced with PVR API 1.9.7 */
-  if (dvblinkclient)
-    return dvblinkclient->GetTimers(handle);
+  if (lifesatclient)
+    return lifesatclient->GetTimers(handle);
 
   return PVR_ERROR_FAILED;
 }
 
 PVR_ERROR AddTimer(const PVR_TIMER &timer)
 {
-  if (dvblinkclient)
-    return dvblinkclient->AddTimer(timer);
+  if (lifesatclient)
+    return lifesatclient->AddTimer(timer);
 
   return PVR_ERROR_FAILED;
 }
 
 PVR_ERROR DeleteTimer(const PVR_TIMER &timer, bool bForceDelete)
 {
-  if (dvblinkclient)
-    return dvblinkclient->DeleteTimer(timer);
+  if (lifesatclient)
+    return lifesatclient->DeleteTimer(timer);
 
   return PVR_ERROR_FAILED;
 }
 
 PVR_ERROR UpdateTimer(const PVR_TIMER &timer)
 {
-  if (dvblinkclient)
-    return dvblinkclient->UpdateTimer(timer);
+  if (lifesatclient)
+    return lifesatclient->UpdateTimer(timer);
 
   return PVR_ERROR_FAILED;
 }
 
 int GetRecordingsAmount(bool deleted)
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetRecordingsAmount();
+  if (lifesatclient)
+    return lifesatclient->GetRecordingsAmount();
 
   return -1;
 }
 
 PVR_ERROR GetRecordings(ADDON_HANDLE handle, bool deleted)
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetRecordings(handle);
+  if (lifesatclient)
+    return lifesatclient->GetRecordings(handle);
 
   return PVR_ERROR_FAILED;
 }
 
 PVR_ERROR DeleteRecording(const PVR_RECORDING &recording)
 {
-  if (dvblinkclient)
-    return dvblinkclient->DeleteRecording(recording);
+  if (lifesatclient)
+    return lifesatclient->DeleteRecording(recording);
 
   return PVR_ERROR_FAILED;
 }
@@ -765,7 +765,7 @@ bool OpenRecordedStream(const PVR_RECORDING &recording)
 
   bool ret_val = false;
   std::string url;
-  if (dvblinkclient->GetRecordingURL(recording.strRecordingId, url, g_bUseTranscoding, g_iWidth, g_iHeight, g_iBitrate, g_szAudiotrack))
+  if (lifesatclient->GetRecordingURL(recording.strRecordingId, url, g_bUseTranscoding, g_iWidth, g_iHeight, g_iBitrate, g_szAudiotrack))
   {
     recording_streamer = new RecordingStreamer(XBMC, g_szClientname, g_szHostname, g_lPort, g_szUsername, g_szPassword);
     if (recording_streamer->OpenRecordedStream(recording.strRecordingId, url))
@@ -867,24 +867,24 @@ PVR_ERROR OpenDialogChannelAdd(const PVR_CHANNEL &channel)
 
 int GetChannelGroupsAmount(void)
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetChannelGroupsAmount();
+  if (lifesatclient)
+    return lifesatclient->GetChannelGroupsAmount();
 
   return -1;
 }
 
 PVR_ERROR GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetChannelGroups(handle, bRadio);
+  if (lifesatclient)
+    return lifesatclient->GetChannelGroups(handle, bRadio);
 
   return PVR_ERROR_NOT_IMPLEMENTED;
 }
 
 PVR_ERROR GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
 {
-  if (dvblinkclient)
-    return dvblinkclient->GetChannelGroupMembers(handle, group);
+  if (lifesatclient)
+    return lifesatclient->GetChannelGroupMembers(handle, group);
 
   return PVR_ERROR_NOT_IMPLEMENTED;
 }

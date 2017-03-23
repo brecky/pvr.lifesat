@@ -28,7 +28,7 @@ using namespace lifesatremotehttp;
 HttpWebRequest::HttpWebRequest(const std::string& url)
   : m_url(url)
 {
-  Method = DVBLINK_REMOTE_HTTP_POST_METHOD;
+  Method = LIFESAT_REMOTE_HTTP_POST_METHOD;
   ContentType = "";
   ContentLength = 0;
   m_requestData = "";

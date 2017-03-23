@@ -25,7 +25,7 @@
 
 #include "TimeShiftBuffer.h"
 using namespace ADDON;
-using namespace dvblinkremote;
+using namespace lifesatremote;
 
 //base live streaming class
 
@@ -67,7 +67,7 @@ LiveTVStreamer::LiveTVStreamer(CHelper_libXBMC_addon* XBMC) :
 {
 }
 
-StreamRequest* LiveTVStreamer::GetStreamRequest(long dvblink_channel_id, const std::string& client_id,
+StreamRequest* LiveTVStreamer::GetStreamRequest(long lifesat_channel_id, const std::string& client_id,
     const std::string& host_name, bool use_transcoder, int width, int height, int bitrate, std::string audiotrack)
 {
   StreamRequest* streamRequest = NULL;
@@ -78,11 +78,11 @@ StreamRequest* LiveTVStreamer::GetStreamRequest(long dvblink_channel_id, const s
 
   if (use_transcoder)
   {
-    streamRequest = new H264TSStreamRequest(host_name.c_str(), dvblink_channel_id, client_id.c_str(), options);
+    streamRequest = new H264TSStreamRequest(host_name.c_str(), lifesat_channel_id, client_id.c_str(), options);
   }
   else
   {
-    streamRequest = new RawHttpStreamRequest(host_name.c_str(), dvblink_channel_id, client_id.c_str());
+    streamRequest = new RawHttpStreamRequest(host_name.c_str(), lifesat_channel_id, client_id.c_str());
   }
 
   return streamRequest;
@@ -101,7 +101,7 @@ TimeShiftBuffer::~TimeShiftBuffer(void)
 {
 }
 
-StreamRequest* TimeShiftBuffer::GetStreamRequest(long dvblink_channel_id, const std::string& client_id,
+StreamRequest* TimeShiftBuffer::GetStreamRequest(long lifesat_channel_id, const std::string& client_id,
     const std::string& host_name, bool use_transcoder, int width, int height, int bitrate, std::string audiotrack)
 {
   StreamRequest* streamRequest = NULL;
@@ -112,11 +112,11 @@ StreamRequest* TimeShiftBuffer::GetStreamRequest(long dvblink_channel_id, const 
 
   if (use_transcoder)
   {
-    streamRequest = new H264TSTimeshiftStreamRequest(host_name.c_str(), dvblink_channel_id, client_id.c_str(), options);
+    streamRequest = new H264TSTimeshiftStreamRequest(host_name.c_str(), lifesat_channel_id, client_id.c_str(), options);
   }
   else
   {
-    streamRequest = new RawHttpTimeshiftStreamRequest(host_name.c_str(), dvblink_channel_id, client_id.c_str());
+    streamRequest = new RawHttpTimeshiftStreamRequest(host_name.c_str(), lifesat_channel_id, client_id.c_str());
   }
 
   return streamRequest;

@@ -32,7 +32,7 @@ Schedule::Schedule()
 
 }
 
-Schedule::Schedule(const DVBLinkScheduleType scheduleType, const std::string& channelId, const int recordingsToKeep, const int marginBefore, const int marginAfter)
+Schedule::Schedule(const LifeSatScheduleType scheduleType, const std::string& channelId, const int recordingsToKeep, const int marginBefore, const int marginAfter)
   : m_scheduleType(scheduleType), 
     m_channelId(channelId), 
     RecordingsToKeep(recordingsToKeep),
@@ -44,7 +44,7 @@ Schedule::Schedule(const DVBLinkScheduleType scheduleType, const std::string& ch
   ForceAdd = false;
 }
 
-Schedule::Schedule(const DVBLinkScheduleType scheduleType, const std::string& id, const std::string& channelId, const int recordingsToKeep, const int marginBefore, const int marginAfter)
+Schedule::Schedule(const LifeSatScheduleType scheduleType, const std::string& id, const std::string& channelId, const int recordingsToKeep, const int marginBefore, const int marginAfter)
   : m_scheduleType(scheduleType), 
     m_id(id),
     m_channelId(channelId), 
@@ -71,7 +71,7 @@ std::string& Schedule::GetChannelID()
   return m_channelId; 
 }
 
-Schedule::DVBLinkScheduleType& Schedule::GetScheduleType() 
+Schedule::LifeSatScheduleType& Schedule::GetScheduleType() 
 { 
   return m_scheduleType; 
 }

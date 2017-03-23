@@ -30,87 +30,87 @@ bool XmlObjectSerializerFactory::Serialize(const std::string& dvbLinkCommand, co
   bool result = true;
   XmlObjectSerializer<Request>* requestSerializer = NULL;
 
-  if (dvbLinkCommand == DVBLINK_REMOTE_GET_CHANNELS_CMD) {
+  if (dvbLinkCommand == LIFESAT_REMOTE_GET_CHANNELS_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetChannelsRequestSerializer();
     result = ((GetChannelsRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetChannelsRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_SEARCH_EPG_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_SEARCH_EPG_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new EpgSearchRequestSerializer();
     result = ((EpgSearchRequestSerializer*)requestSerializer)->WriteObject(serializedData, (EpgSearchRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_PLAY_CHANNEL_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_PLAY_CHANNEL_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new StreamRequestSerializer();
     result = ((StreamRequestSerializer*)requestSerializer)->WriteObject(serializedData, (StreamRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_STOP_CHANNEL_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_STOP_CHANNEL_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new StopStreamRequestSerializer();
     result = ((StopStreamRequestSerializer*)requestSerializer)->WriteObject(serializedData, (StopStreamRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_RECORDINGS_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_RECORDINGS_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetRecordingsRequestSerializer();
     result = ((GetRecordingsRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetRecordingsRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_REMOVE_RECORDING_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_REMOVE_RECORDING_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new RemoveRecordingRequestSerializer();
     result = ((RemoveRecordingRequestSerializer*)requestSerializer)->WriteObject(serializedData, (RemoveRecordingRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_ADD_SCHEDULE_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_ADD_SCHEDULE_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new AddScheduleRequestSerializer();
     result = ((AddScheduleRequestSerializer*)requestSerializer)->WriteObject(serializedData, (AddScheduleRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_SCHEDULES_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_SCHEDULES_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetSchedulesRequestSerializer();
     result = ((GetSchedulesRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetSchedulesRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_UPDATE_SCHEDULE_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_UPDATE_SCHEDULE_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new UpdateScheduleRequestSerializer();
     result = ((UpdateScheduleRequestSerializer*)requestSerializer)->WriteObject(serializedData, (UpdateScheduleRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_REMOVE_SCHEDULE_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_REMOVE_SCHEDULE_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new RemoveScheduleRequestSerializer();
     result = ((RemoveScheduleRequestSerializer*)requestSerializer)->WriteObject(serializedData, (RemoveScheduleRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_PARENTAL_STATUS_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_PARENTAL_STATUS_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetParentalStatusRequestSerializer();
     result = ((GetParentalStatusRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetParentalStatusRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_SET_PARENTAL_LOCK_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_SET_PARENTAL_LOCK_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new SetParentalLockRequestSerializer();
     result = ((SetParentalLockRequestSerializer*)requestSerializer)->WriteObject(serializedData, (SetParentalLockRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_PLAYLIST_M3U_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_PLAYLIST_M3U_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetM3uPlaylistRequestSerializer();
     result = ((GetM3uPlaylistRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetM3uPlaylistRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_OBJECT_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_OBJECT_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetPlaybackObjectRequestSerializer();
     result = ((GetPlaybackObjectRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetPlaybackObjectRequest&)request);
   }  
-  else if (dvbLinkCommand == DVBLINK_REMOTE_REMOVE_OBJECT_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_REMOVE_OBJECT_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new RemovePlaybackObjectRequestSerializer();
     result = ((RemovePlaybackObjectRequestSerializer*)requestSerializer)->WriteObject(serializedData, (RemovePlaybackObjectRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_STOP_RECORDING_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_STOP_RECORDING_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new StopRecordingRequestSerializer();
     result = ((StopRecordingRequestSerializer*)requestSerializer)->WriteObject(serializedData, (StopRecordingRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_STREAMING_CAPABILITIES_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_STREAMING_CAPABILITIES_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetStreamingCapabilitiesRequestSerializer();
     result = ((GetStreamingCapabilitiesRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetStreamingCapabilitiesRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_RECORDING_SETTINGS_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_RECORDING_SETTINGS_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetRecordingSettingsRequestSerializer();
     result = ((GetRecordingSettingsRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetRecordingSettingsRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_SET_RECORDING_SETTING_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_SET_RECORDING_SETTING_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new SetRecordingSettingsRequestSerializer();
     result = ((SetRecordingSettingsRequestSerializer*)requestSerializer)->WriteObject(serializedData, (SetRecordingSettingsRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_SERVER_INFO_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_SERVER_INFO_CMD) {
       requestSerializer = (XmlObjectSerializer<Request>*)new GetServerInfoRequestSerializer();
       result = ((GetServerInfoRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetServerInfoRequest&)request);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_FAVORITES_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_FAVORITES_CMD) {
       requestSerializer = (XmlObjectSerializer<Request>*)new GetFavoritesRequestSerializer();
       result = ((GetFavoritesRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetFavoritesRequest&)request);
   }
@@ -130,59 +130,59 @@ bool XmlObjectSerializerFactory::Deserialize(const std::string& dvbLinkCommand, 
   bool result = true;
   XmlObjectSerializer<Response>* responseSerializer = NULL;
 
-  if (dvbLinkCommand == DVBLINK_REMOTE_GET_CHANNELS_CMD) {
+  if (dvbLinkCommand == LIFESAT_REMOTE_GET_CHANNELS_CMD) {
     GetChannelsResponseSerializer* serializer = new GetChannelsResponseSerializer();
     result = serializer->ReadObject((ChannelList&)response, serializedData);
     delete serializer;
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_SEARCH_EPG_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_SEARCH_EPG_CMD) {
     responseSerializer = (XmlObjectSerializer<Response>*)new EpgSearchResponseSerializer();
     result = ((EpgSearchResponseSerializer*)responseSerializer)->ReadObject((EpgSearchResult&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_PLAY_CHANNEL_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_PLAY_CHANNEL_CMD) {
     responseSerializer = (XmlObjectSerializer<Response>*)new StreamResponseSerializer();
     result = ((StreamResponseSerializer*)responseSerializer)->ReadObject((Stream&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_RECORDINGS_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_RECORDINGS_CMD) {
     responseSerializer = (XmlObjectSerializer<Response>*)new GetRecordingsResponseSerializer();
     result = ((GetRecordingsResponseSerializer*)responseSerializer)->ReadObject((RecordingList&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_SCHEDULES_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_SCHEDULES_CMD) {
     responseSerializer = (XmlObjectSerializer<Response>*)new GetSchedulesResponseSerializer();
     result = ((GetSchedulesResponseSerializer*)responseSerializer)->ReadObject((StoredSchedules&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_SET_PARENTAL_LOCK_CMD || dvbLinkCommand == DVBLINK_REMOTE_GET_PARENTAL_STATUS_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_SET_PARENTAL_LOCK_CMD || dvbLinkCommand == LIFESAT_REMOTE_GET_PARENTAL_STATUS_CMD) {
       responseSerializer = (XmlObjectSerializer<Response>*)new ParentalStatusSerializer();
       result = ((ParentalStatusSerializer*)responseSerializer)->ReadObject((ParentalStatus&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_OBJECT_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_OBJECT_CMD) {
     responseSerializer = (XmlObjectSerializer<Response>*)new GetPlaybackObjectResponseSerializer();
     result = ((GetPlaybackObjectResponseSerializer*)responseSerializer)->ReadObject((GetPlaybackObjectResponse&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_STREAMING_CAPABILITIES_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_STREAMING_CAPABILITIES_CMD) {
     responseSerializer = (XmlObjectSerializer<Response>*)new StreamingCapabilitiesSerializer();
     result = ((StreamingCapabilitiesSerializer*)responseSerializer)->ReadObject((StreamingCapabilities&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_RECORDING_SETTINGS_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_RECORDING_SETTINGS_CMD) {
     responseSerializer = (XmlObjectSerializer<Response>*)new RecordingSettingsSerializer();
     result = ((RecordingSettingsSerializer*)responseSerializer)->ReadObject((RecordingSettings&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_FAVORITES_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_FAVORITES_CMD) {
       responseSerializer = (XmlObjectSerializer<Response>*)new ChannelFavoritesSerializer();
       result = ((ChannelFavoritesSerializer*)responseSerializer)->ReadObject((ChannelFavorites&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_GET_SERVER_INFO_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_GET_SERVER_INFO_CMD) {
       responseSerializer = (XmlObjectSerializer<Response>*)new ServerInfoSerializer();
       result = ((ServerInfoSerializer*)responseSerializer)->ReadObject((ServerInfo&)response, serializedData);
   }
-  else if (dvbLinkCommand == DVBLINK_REMOTE_ADD_SCHEDULE_CMD ||
-           dvbLinkCommand == DVBLINK_REMOTE_UPDATE_SCHEDULE_CMD ||
-           dvbLinkCommand == DVBLINK_REMOTE_REMOVE_SCHEDULE_CMD ||
-           dvbLinkCommand == DVBLINK_REMOTE_REMOVE_RECORDING_CMD || 
-           dvbLinkCommand == DVBLINK_REMOTE_STOP_CHANNEL_CMD ||
-           dvbLinkCommand == DVBLINK_REMOTE_REMOVE_OBJECT_CMD ||
-           dvbLinkCommand == DVBLINK_REMOTE_STOP_RECORDING_CMD ||
-           dvbLinkCommand == DVBLINK_REMOTE_SET_RECORDING_SETTING_CMD) {
+  else if (dvbLinkCommand == LIFESAT_REMOTE_ADD_SCHEDULE_CMD ||
+           dvbLinkCommand == LIFESAT_REMOTE_UPDATE_SCHEDULE_CMD ||
+           dvbLinkCommand == LIFESAT_REMOTE_REMOVE_SCHEDULE_CMD ||
+           dvbLinkCommand == LIFESAT_REMOTE_REMOVE_RECORDING_CMD || 
+           dvbLinkCommand == LIFESAT_REMOTE_STOP_CHANNEL_CMD ||
+           dvbLinkCommand == LIFESAT_REMOTE_REMOVE_OBJECT_CMD ||
+           dvbLinkCommand == LIFESAT_REMOTE_STOP_RECORDING_CMD ||
+           dvbLinkCommand == LIFESAT_REMOTE_SET_RECORDING_SETTING_CMD) {
     result = true;
   }
   else {

@@ -24,22 +24,22 @@
 
 #pragma once
 
-#include "libdvblinkremote/dvblinkremote.h"
-#include "libdvblinkremote/dvblinkremotehttp.h"
+#include "liblifesatremote/lifesatremote.h"
+#include "liblifesatremote/lifesatremotehttp.h"
 #include "libXBMC_addon.h"
 
-class HttpPostClient: public dvblinkremotehttp::HttpClient
+class HttpPostClient: public lifesatremotehttp::HttpClient
 {
 public:
-  bool SendRequest(dvblinkremotehttp::HttpWebRequest& request);
-  dvblinkremotehttp::HttpWebResponse* GetResponse();
+  bool SendRequest(lifesatremotehttp::HttpWebRequest& request);
+  lifesatremotehttp::HttpWebResponse* GetResponse();
   void GetLastError(std::string& err);
   void UrlEncode(const std::string& str, std::string& outEncodedStr);
   HttpPostClient(ADDON::CHelper_libXBMC_addon *XBMC, const std::string& server, const int serverport,
       const std::string& username, const std::string& password);
 
 private:
-  int SendPostRequest(dvblinkremotehttp::HttpWebRequest& request);
+  int SendPostRequest(lifesatremotehttp::HttpWebRequest& request);
   std::string m_server;
   long m_serverport;
   std::string m_username;

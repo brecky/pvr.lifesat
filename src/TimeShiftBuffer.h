@@ -27,7 +27,7 @@
 
 #include "libXBMC_addon.h"
 #include "p8-platform/util/StdString.h"
-#include "libdvblinkremote/dvblinkremote.h"
+#include "liblifesatremote/lifesatremote.h"
 #include "p8-platform/util/util.h"
 
 class LiveStreamerBase
@@ -66,7 +66,7 @@ public:
     return 0;
   }
 
-  virtual dvblinkremote::StreamRequest* GetStreamRequest(long dvblink_channel_id, const std::string& client_id,
+  virtual lifesatremote::StreamRequest* GetStreamRequest(long lifesat_channel_id, const std::string& client_id,
       const std::string& host_name, bool use_transcoder, int width, int height, int bitrate, std::string audiotrack)
   {
     return NULL;
@@ -83,7 +83,7 @@ class LiveTVStreamer: public LiveStreamerBase
 public:
   LiveTVStreamer(ADDON::CHelper_libXBMC_addon * XBMC);
 
-  virtual dvblinkremote::StreamRequest* GetStreamRequest(long dvblink_channel_id, const std::string& client_id,
+  virtual lifesatremote::StreamRequest* GetStreamRequest(long lifesat_channel_id, const std::string& client_id,
       const std::string& host_name, bool use_transcoder, int width, int height, int bitrate, std::string audiotrack);
 };
 
@@ -101,7 +101,7 @@ public:
   virtual time_t GetBufferTimeStart();
   virtual time_t GetBufferTimeEnd();
 
-  virtual dvblinkremote::StreamRequest* GetStreamRequest(long dvblink_channel_id, const std::string& client_id,
+  virtual lifesatremote::StreamRequest* GetStreamRequest(long lifesat_channel_id, const std::string& client_id,
       const std::string& host_name, bool use_transcoder, int width, int height, int bitrate, std::string audiotrack);
 
 protected:

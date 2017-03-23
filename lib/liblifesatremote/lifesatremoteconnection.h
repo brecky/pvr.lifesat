@@ -24,12 +24,12 @@
 #pragma once
 
 #include <string>
-#include "dvblinkremote.h"
-#include "dvblinkremotehttp.h"
+#include "lifesatremote.h"
+#include "lifesatremotehttp.h"
 #include "response.h"
 #include "request.h"
 
-namespace dvblinkremote 
+namespace lifesatremote 
 {
 
   #ifndef _MSC_VER
@@ -38,50 +38,50 @@ namespace dvblinkremote
   #endif
 
 
-  class DVBLinkRemoteCommunication : public IDVBLinkRemoteConnection
+  class LifeSatRemoteCommunication : public ILifeSatRemoteConnection
   {
   public:
-      DVBLinkRemoteCommunication(dvblinkremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, DVBLinkRemoteLocker* locker);
-      DVBLinkRemoteCommunication(dvblinkremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, DVBLinkRemoteLocker* locker);
-    virtual ~DVBLinkRemoteCommunication();
+      LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, LifeSatRemoteLocker* locker);
+      LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, LifeSatRemoteLocker* locker);
+    virtual ~LifeSatRemoteCommunication();
 
-    DVBLinkRemoteStatusCode GetChannels(const GetChannelsRequest& request, ChannelList& response, std::string* err_str);
-    DVBLinkRemoteStatusCode SearchEpg(const EpgSearchRequest& request, EpgSearchResult& response, std::string* err_str);
-    DVBLinkRemoteStatusCode PlayChannel(const StreamRequest& request, Stream& response, std::string* err_str);
-    DVBLinkRemoteStatusCode StopChannel(const StopStreamRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode GetRecordings(const GetRecordingsRequest& request, RecordingList& response, std::string* err_str);
-    DVBLinkRemoteStatusCode RemoveRecording(const RemoveRecordingRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode AddSchedule(const AddScheduleRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode GetSchedules(const GetSchedulesRequest& request, StoredSchedules& response, std::string* err_str);
-    DVBLinkRemoteStatusCode UpdateSchedule(const UpdateScheduleRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode RemoveSchedule(const RemoveScheduleRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode GetParentalStatus(const GetParentalStatusRequest& request, ParentalStatus& response, std::string* err_str);
-    DVBLinkRemoteStatusCode SetParentalLock(const SetParentalLockRequest& request, ParentalStatus& response, std::string* err_str);
-    DVBLinkRemoteStatusCode GetM3uPlaylist(const GetM3uPlaylistRequest& request, M3uPlaylist& response, std::string* err_str);
-    DVBLinkRemoteStatusCode GetPlaybackObject(const GetPlaybackObjectRequest& request, GetPlaybackObjectResponse& response, std::string* err_str);
-    DVBLinkRemoteStatusCode RemovePlaybackObject(const RemovePlaybackObjectRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode StopRecording(const StopRecordingRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode GetStreamingCapabilities(const GetStreamingCapabilitiesRequest& request, StreamingCapabilities& response, std::string* err_str);
-    DVBLinkRemoteStatusCode GetRecordingSettings(const GetRecordingSettingsRequest& request, RecordingSettings& response, std::string* err_str);
-    DVBLinkRemoteStatusCode SetRecordingSettings(const SetRecordingSettingsRequest& request, std::string* err_str);
-    DVBLinkRemoteStatusCode GetFavorites(const GetFavoritesRequest& request, ChannelFavorites& response, std::string* err_str);
-    DVBLinkRemoteStatusCode GetServerInfo(const GetServerInfoRequest& request, ServerInfo& response, std::string* err_str);
+    LifeSatRemoteStatusCode GetChannels(const GetChannelsRequest& request, ChannelList& response, std::string* err_str);
+    LifeSatRemoteStatusCode SearchEpg(const EpgSearchRequest& request, EpgSearchResult& response, std::string* err_str);
+    LifeSatRemoteStatusCode PlayChannel(const StreamRequest& request, Stream& response, std::string* err_str);
+    LifeSatRemoteStatusCode StopChannel(const StopStreamRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode GetRecordings(const GetRecordingsRequest& request, RecordingList& response, std::string* err_str);
+    LifeSatRemoteStatusCode RemoveRecording(const RemoveRecordingRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode AddSchedule(const AddScheduleRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode GetSchedules(const GetSchedulesRequest& request, StoredSchedules& response, std::string* err_str);
+    LifeSatRemoteStatusCode UpdateSchedule(const UpdateScheduleRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode RemoveSchedule(const RemoveScheduleRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode GetParentalStatus(const GetParentalStatusRequest& request, ParentalStatus& response, std::string* err_str);
+    LifeSatRemoteStatusCode SetParentalLock(const SetParentalLockRequest& request, ParentalStatus& response, std::string* err_str);
+    LifeSatRemoteStatusCode GetM3uPlaylist(const GetM3uPlaylistRequest& request, M3uPlaylist& response, std::string* err_str);
+    LifeSatRemoteStatusCode GetPlaybackObject(const GetPlaybackObjectRequest& request, GetPlaybackObjectResponse& response, std::string* err_str);
+    LifeSatRemoteStatusCode RemovePlaybackObject(const RemovePlaybackObjectRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode StopRecording(const StopRecordingRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode GetStreamingCapabilities(const GetStreamingCapabilitiesRequest& request, StreamingCapabilities& response, std::string* err_str);
+    LifeSatRemoteStatusCode GetRecordingSettings(const GetRecordingSettingsRequest& request, RecordingSettings& response, std::string* err_str);
+    LifeSatRemoteStatusCode SetRecordingSettings(const SetRecordingSettingsRequest& request, std::string* err_str);
+    LifeSatRemoteStatusCode GetFavorites(const GetFavoritesRequest& request, ChannelFavorites& response, std::string* err_str);
+    LifeSatRemoteStatusCode GetServerInfo(const GetServerInfoRequest& request, ServerInfo& response, std::string* err_str);
 
   private:
-    dvblinkremotehttp::HttpClient& m_httpClient;
+    lifesatremotehttp::HttpClient& m_httpClient;
     std::string m_hostAddress;
     long m_port;
     std::string m_username;
     std::string m_password;
-    char m_errorBuffer[dvblinkremote::DVBLINK_REMOTE_DEFAULT_BUFFER_SIZE];
-    DVBLinkRemoteLocker* m_locker;
+    char m_errorBuffer[lifesatremote::LIFESAT_REMOTE_DEFAULT_BUFFER_SIZE];
+    LifeSatRemoteLocker* m_locker;
 
-    DVBLinkRemoteStatusCode GetData(const std::string& command, const Request& request, Response& response, std::string* err_str);
-    DVBLinkRemoteStatusCode SerializeRequestObject(const std::string& command, const Request& request, std::string& requestXmlData);
-    DVBLinkRemoteStatusCode DeserializeResponseData(const std::string& command, const std::string& responseData, Response& responseObject);
+    LifeSatRemoteStatusCode GetData(const std::string& command, const Request& request, Response& response, std::string* err_str);
+    LifeSatRemoteStatusCode SerializeRequestObject(const std::string& command, const Request& request, std::string& requestXmlData);
+    LifeSatRemoteStatusCode DeserializeResponseData(const std::string& command, const std::string& responseData, Response& responseObject);
     std::string GetUrl();
     std::string CreateRequestDataParameter(const std::string& command, const std::string& xmlData);
-    std::string GetStatusCodeDescription(DVBLinkRemoteStatusCode status);
+    std::string GetStatusCodeDescription(LifeSatRemoteStatusCode status);
     void WriteError(const char* format, ...);
     void ClearErrorBuffer();
     void GetLastError(std::string& err);

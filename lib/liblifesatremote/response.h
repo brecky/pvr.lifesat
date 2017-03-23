@@ -27,7 +27,7 @@
 #include <vector>
 #include "request.h"
 
-namespace dvblinkremote {
+namespace lifesatremote {
   /** 
     * Base class for DVBLink Client responses.
     */
@@ -49,7 +49,7 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::Channel class.
+      * Initializes a new instance of the lifesatremote::Channel class.
       * @param id a constant string reference representing the generic identifier of the channel.
       * @param dvbLinkId a constant long representing the DVBLink identifier of the channel.
       * @param name a constant string reference representing the name of the channel.
@@ -61,9 +61,9 @@ namespace dvblinkremote {
       const std::string& logo_url, const int number = -1, const int subNumber = -1);
 
     /**
-      * Initializes a new instance of the dvblinkremote::Channel class by coping another 
-      * dvblinkremote::Channel instance.
-      * @param channel a dvblinkremote::Channel reference.
+      * Initializes a new instance of the lifesatremote::Channel class by coping another 
+      * lifesatremote::Channel instance.
+      * @param channel a lifesatremote::Channel reference.
       */
     Channel(Channel& channel);
     
@@ -134,7 +134,7 @@ namespace dvblinkremote {
   class ChannelList : public Response, public std::vector<Channel*> {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::ChannelList class.
+      * Initializes a new instance of the lifesatremote::ChannelList class.
       */
     ChannelList();
 
@@ -151,12 +151,12 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::ItemMetadata class.
+      * Initializes a new instance of the lifesatremote::ItemMetadata class.
       */
     ItemMetadata();
 
     /**
-      * Initializes a new instance of the dvblinkremote::MetaData class.
+      * Initializes a new instance of the lifesatremote::MetaData class.
       * @param title a constant string reference representing the title of the item.
       * @param startTime a constant long representing the start time of the item.
       * @param duration a constant long representing the duration of the item.
@@ -166,9 +166,9 @@ namespace dvblinkremote {
     ItemMetadata(const std::string& title, const long startTime, const long duration);
 
     /**
-      * Initializes a new instance of the dvblinkremote::ItemMetadata class by coping another 
-      * dvblinkremote::ItemMetadata instance.
-      * @param itemMetadata a dvblinkremote::ItemMetadata reference.
+      * Initializes a new instance of the lifesatremote::ItemMetadata class by coping another 
+      * lifesatremote::ItemMetadata instance.
+      * @param itemMetadata a lifesatremote::ItemMetadata reference.
       */
     ItemMetadata(ItemMetadata& itemMetadata);
 
@@ -270,12 +270,12 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::Program class.
+      * Initializes a new instance of the lifesatremote::Program class.
       */
     Program();
 
     /**
-      * Initializes a new instance of the dvblinkremote::Program class.
+      * Initializes a new instance of the lifesatremote::Program class.
       * @param id a constant string reference representing the identifier of the program.
       * @param title a constant string reference representing the title of the program.
       * @param startTime a constant long representing the start time of the program.
@@ -286,9 +286,9 @@ namespace dvblinkremote {
     Program(const std::string& id, const std::string& title, const long startTime, const long duration);
 
     /**
-      * Initializes a new instance of the dvblinkremote::Program class by coping another 
-      * dvblinkremote::Program instance.
-      * @param program a dvblinkremote::Program reference.
+      * Initializes a new instance of the lifesatremote::Program class by coping another 
+      * lifesatremote::Program instance.
+      * @param program a lifesatremote::Program reference.
       */
     Program(Program& program);
     
@@ -321,14 +321,14 @@ namespace dvblinkremote {
   class EpgData : public std::vector<Program*> {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::EpgData class.
+      * Initializes a new instance of the lifesatremote::EpgData class.
       */
     EpgData();
 
     /**
-      * Initializes a new instance of the dvblinkremote::EpgData class by coping another 
-      * dvblinkremote::EpgData instance.
-      * @param epgData a dvblinkremote::EpgData reference.
+      * Initializes a new instance of the lifesatremote::EpgData class by coping another 
+      * lifesatremote::EpgData instance.
+      * @param epgData a lifesatremote::EpgData reference.
       */
     EpgData(EpgData& epgData);
     
@@ -345,15 +345,15 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::ChannelEpgData class.
+      * Initializes a new instance of the lifesatremote::ChannelEpgData class.
       * @param channelId a constant string reference representing the channel identifier for the corresponding electronic program guide (EPG) data.
       */
     ChannelEpgData(const std::string& channelId);
 
     /**
-      * Initializes a new instance of the dvblinkremote::ChannelEpgData class by coping another 
-      * dvblinkremote::ChannelEpgData instance.
-      * @param channelEpgData a dvblinkremote::ChannelEpgData reference.
+      * Initializes a new instance of the lifesatremote::ChannelEpgData class by coping another 
+      * lifesatremote::ChannelEpgData instance.
+      * @param channelEpgData a lifesatremote::ChannelEpgData reference.
       */
     ChannelEpgData(ChannelEpgData& channelEpgData);
 
@@ -376,7 +376,7 @@ namespace dvblinkremote {
 
     /**
       * Adds a program to the electronic program guide (EPG).
-      * @param program A constant dvblinkremote::Program pointer.
+      * @param program A constant lifesatremote::Program pointer.
       */
     void AddProgram(const Program* program);
 
@@ -395,7 +395,7 @@ namespace dvblinkremote {
   class EpgSearchResult : public Response, public std::vector<ChannelEpgData*> {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::EpgSearchResult class.
+      * Initializes a new instance of the lifesatremote::EpgSearchResult class.
       */
     EpgSearchResult();
 
@@ -414,21 +414,21 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::Stream class.
+      * Initializes a new instance of the lifesatremote::Stream class.
       */
     Stream();
 
     /**
-      * Initializes a new instance of the dvblinkremote::Stream class.
+      * Initializes a new instance of the lifesatremote::Stream class.
       * @param channelHandle a constant long representing the channel handle of the stream.
       * @param url a constant string reference representing the url of the stream.
       */
     Stream(const long channelHandle, const std::string& url);
     
     /**
-      * Initializes a new instance of the dvblinkremote::Stream class by coping another 
-      * dvblinkremote::Stream instance.
-      * @param stream a dvblinkremote::Stream reference.
+      * Initializes a new instance of the lifesatremote::Stream class by coping another 
+      * lifesatremote::Stream instance.
+      * @param stream a lifesatremote::Stream reference.
       */
     Stream(Stream& stream);
 
@@ -473,18 +473,18 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::Recording class.
+      * Initializes a new instance of the lifesatremote::Recording class.
       * @param id a constant string reference representing the identifier of the recording.
       * @param scheduleId a constant string reference representing the schedule identifier of the recording.
       * @param channelId a constant string reference representing the channel identifier of the recording.
-      * @param program a constant dvblinkremote::Program instance pointer representing the program of the recording.
+      * @param program a constant lifesatremote::Program instance pointer representing the program of the recording.
       */
     Recording(const std::string& id, const std::string& scheduleId, const std::string& channelId, const Program* program);
     
     /**
-      * Initializes a new instance of the dvblinkremote::Recording class by coping another 
-      * dvblinkremote::Recording instance.
-      * @param recording a dvblinkremote::Recording reference.
+      * Initializes a new instance of the lifesatremote::Recording class by coping another 
+      * lifesatremote::Recording instance.
+      * @param recording a lifesatremote::Recording reference.
       */
     Recording(Recording& recording);
 
@@ -556,7 +556,7 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::StoredManualSchedule class.
+      * Initializes a new instance of the lifesatremote::StoredManualSchedule class.
       * @param id a constant string reference representing the schedule identifier.
       * @param channelId a constant string reference representing the channel identifier.
       * @param startTime a constant long representing the start time of the schedule.
@@ -594,7 +594,7 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::StoredEpgSchedule class.
+      * Initializes a new instance of the lifesatremote::StoredEpgSchedule class.
       * @param id a constant string reference representing the schedule identifier.
       * @param channelId a constant string reference representing the channel identifier.
       * @param programId a constant string reference representing the program identifier.
@@ -634,7 +634,7 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::StoredByPatternSchedule class.
+      * Initializes a new instance of the lifesatremote::StoredByPatternSchedule class.
       * @param id a constant string reference representing the schedule identifier.
       * @param channelId a constant string reference representing the channel identifier.
       * @param keyPhrase a constant string representing pattern keyphrase
@@ -713,14 +713,14 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::ParentalStatus class.
+      * Initializes a new instance of the lifesatremote::ParentalStatus class.
       */
     ParentalStatus();
     
     /**
-      * Initializes a new instance of the dvblinkremote::ParentalStatus class by coping another 
-      * dvblinkremote::ParentalStatus instance.
-      * @param parentalStatus a dvblinkremote::ParentalStatus reference.
+      * Initializes a new instance of the lifesatremote::ParentalStatus class by coping another 
+      * lifesatremote::ParentalStatus instance.
+      * @param parentalStatus a lifesatremote::ParentalStatus reference.
       */
     ParentalStatus(ParentalStatus& parentalStatus);
 
@@ -744,7 +744,7 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::M3uPlaylist class.
+      * Initializes a new instance of the lifesatremote::M3uPlaylist class.
       */
     M3uPlaylist();
 
@@ -774,7 +774,7 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::PlaybackObject class.
+      * Initializes a new instance of the lifesatremote::PlaybackObject class.
       * @param itemType a constant DVBLinkPlaybackObjectType instance representing the type of 
       * the playback item.
       * @param objectId a constant string reference representing the identifier of the playback object.
@@ -852,7 +852,7 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::PlaybackContainer class.
+      * Initializes a new instance of the lifesatremote::PlaybackContainer class.
       * @param objectId a constant string reference representing the identifier of the playback object.
       * @param parentId a constant string reference representing the identifier of the parent object 
       * for this playback object.
@@ -905,7 +905,7 @@ namespace dvblinkremote {
     /**
       * Identifies a physical source of this container.
       * \remark 8F94B459-EFC0-4D91-9B29-EC3D72E92677 is the 
-      * built-in dvblink recorder, e.g. Recorded TV items.
+      * built-in lifesat recorder, e.g. Recorded TV items.
       */
     std::string SourceID;
 
@@ -945,7 +945,7 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::PlaybackItem class.
+      * Initializes a new instance of the lifesatremote::PlaybackItem class.
       * @param itemType a constant DVBLinkPlaybackItemType instance representing the type of 
       * the playback item.
       * @param objectId a constant string reference representing the identifier of the playback object.
@@ -1032,12 +1032,12 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::RecordedTvItemMetadata class.
+      * Initializes a new instance of the lifesatremote::RecordedTvItemMetadata class.
       */
     RecordedTvItemMetadata();
 
     /**
-      * Initializes a new instance of the dvblinkremote::RecordedTvItemMetadata class.
+      * Initializes a new instance of the lifesatremote::RecordedTvItemMetadata class.
       * @param title a constant string reference representing the title of a recorded TV item.
       * @param startTime a constant long representing the start time of a recorded TV item.
       * @param duration a constant long representing the duration of a recorded TV item.
@@ -1047,9 +1047,9 @@ namespace dvblinkremote {
     RecordedTvItemMetadata(const std::string& title, const long startTime, const long duration);
 
     /**
-      * Initializes a new instance of the dvblinkremote::RecordedTvItemMetadata class by coping another 
-      * dvblinkremote::RecordedTvItemMetadata instance.
-      * @param recordedTvItemMetadata a dvblinkremote::RecordedTvItemMetadata reference.
+      * Initializes a new instance of the lifesatremote::RecordedTvItemMetadata class by coping another 
+      * lifesatremote::RecordedTvItemMetadata instance.
+      * @param recordedTvItemMetadata a lifesatremote::RecordedTvItemMetadata reference.
       */
     RecordedTvItemMetadata(RecordedTvItemMetadata& recordedTvItemMetadata);
     
@@ -1076,7 +1076,7 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::RecordedTvPlaybackItem class.
+      * Initializes a new instance of the lifesatremote::RecordedTvPlaybackItem class.
       * @param objectId a constant string reference representing the identifier of the playback object.
       * @param parentId a constant string reference representing the identifier of the parent object 
       * for this playback object.
@@ -1136,12 +1136,12 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::VideoItemMetadata class.
+      * Initializes a new instance of the lifesatremote::VideoItemMetadata class.
       */
     VideoItemMetadata();
 
     /**
-      * Initializes a new instance of the dvblinkremote::VideoItemMetadata class.
+      * Initializes a new instance of the lifesatremote::VideoItemMetadata class.
       * @param title a constant string reference representing the title of a video item.
       * @param startTime a constant long representing the start time of a video item.
       * @param duration a constant long representing the duration of a video item.
@@ -1151,9 +1151,9 @@ namespace dvblinkremote {
     VideoItemMetadata(const std::string& title, const long startTime, const long duration);
 
     /**
-      * Initializes a new instance of the dvblinkremote::VideoItemMetadata class by coping another 
-      * dvblinkremote::VideoItemMetadata instance.
-      * @param videoItemMetadata a dvblinkremote::VideoItemMetadata reference.
+      * Initializes a new instance of the lifesatremote::VideoItemMetadata class by coping another 
+      * lifesatremote::VideoItemMetadata instance.
+      * @param videoItemMetadata a lifesatremote::VideoItemMetadata reference.
       */
     VideoItemMetadata(VideoItemMetadata& videoItemMetadata);
     
@@ -1170,7 +1170,7 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::VideoItem class.
+      * Initializes a new instance of the lifesatremote::VideoItem class.
       * @param objectId a constant string reference representing the identifier of the playback object.
       * @param parentId a constant string reference representing the identifier of the parent object 
       * for this playback object.
@@ -1208,7 +1208,7 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::GetPlaybackObjectResponse class.
+      * Initializes a new instance of the lifesatremote::GetPlaybackObjectResponse class.
       */
     GetPlaybackObjectResponse();
     
@@ -1280,14 +1280,14 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::StreamingCapabilities class.
+      * Initializes a new instance of the lifesatremote::StreamingCapabilities class.
       */
     StreamingCapabilities();
     
     /**
-      * Initializes a new instance of the dvblinkremote::StreamingCapabilities class by coping another 
-      * dvblinkremote::StreamingCapabilities instance.
-      * @param streamingCapabilities a dvblinkremote::StreamingCapabilities reference.
+      * Initializes a new instance of the lifesatremote::StreamingCapabilities class by coping another 
+      * lifesatremote::StreamingCapabilities instance.
+      * @param streamingCapabilities a lifesatremote::StreamingCapabilities reference.
       */
     StreamingCapabilities(StreamingCapabilities& streamingCapabilities);
 
@@ -1316,14 +1316,14 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::RecordingSettings class.
+      * Initializes a new instance of the lifesatremote::RecordingSettings class.
       */
     RecordingSettings();
     
     /**
-      * Initializes a new instance of the dvblinkremote::RecordingSettings class by coping another 
-      * dvblinkremote::RecordingSettings instance.
-      * @param recordingSettings a dvblinkremote::RecordingSettings reference.
+      * Initializes a new instance of the lifesatremote::RecordingSettings class by coping another 
+      * lifesatremote::RecordingSettings instance.
+      * @param recordingSettings a lifesatremote::RecordingSettings reference.
       */
     RecordingSettings(RecordingSettings& recordingSettings);
 
@@ -1390,14 +1390,14 @@ namespace dvblinkremote {
 
   public:
       /**
-      * Initializes a new instance of the dvblinkremote::ChannelFavorites class.
+      * Initializes a new instance of the lifesatremote::ChannelFavorites class.
       */
       ChannelFavorites();
 
       /**
-      * Initializes a new instance of the dvblinkremote::ChannelFavorites class by coping another
-      * dvblinkremote::ChannelFavorites instance.
-      * @param recordingSettings a dvblinkremote::ChannelFavorites reference.
+      * Initializes a new instance of the lifesatremote::ChannelFavorites class by coping another
+      * lifesatremote::ChannelFavorites instance.
+      * @param recordingSettings a lifesatremote::ChannelFavorites reference.
       */
       ChannelFavorites(ChannelFavorites& favorites);
 
@@ -1413,14 +1413,14 @@ namespace dvblinkremote {
   {
   public:
       /**
-      * Initializes a new instance of the dvblinkremote::ServerInfo class.
+      * Initializes a new instance of the lifesatremote::ServerInfo class.
       */
       ServerInfo();
 
       /**
-      * Initializes a new instance of the dvblinkremote::ServerInfo class by coping another
-      * dvblinkremote::ServerInfo instance.
-      * @param server_info a dvblinkremote::ServerInfo reference.
+      * Initializes a new instance of the lifesatremote::ServerInfo class by coping another
+      * lifesatremote::ServerInfo instance.
+      * @param server_info a lifesatremote::ServerInfo reference.
       */
       ServerInfo(ServerInfo& server_info);
 

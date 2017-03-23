@@ -28,22 +28,22 @@
 /**
   * Namespace for serialization specific functionality in the DVBLink Remote API library.
   */
-namespace dvblinkremoteserialization {
+namespace lifesatremoteserialization {
   /**
     * A constant string representing the XML declaration part for XML data used in all requests 
     * in the DVBLink Remote API library.
     */
-  const std::string DVBLINK_REMOTE_SERIALIZATION_XML_DECLARATION = "xml version=\"1.0\" encoding=\"utf-8\" ";
+  const std::string LIFESAT_REMOTE_SERIALIZATION_XML_DECLARATION = "xml version=\"1.0\" encoding=\"utf-8\" ";
 
   /**
     * A constant string representing the xmlns:i namespace of the XML root node part off every 
     * requests made in the DVBLink Remote API library.
     */
-  const std::string DVBLINK_REMOTE_SERIALIZATION_XML_I_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
+  const std::string LIFESAT_REMOTE_SERIALIZATION_XML_I_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
 
   /**
     * A constant string representing the xmlns namespace of the XML root node part off every 
     * requests made in the DVBLink Remote API library.
     */
-  const std::string DVBLINK_REMOTE_SERIALIZATION_XML_NAMESPACE = "http://www.dvblogic.com";
+  const std::string LIFESAT_REMOTE_SERIALIZATION_XML_NAMESPACE = "http://www.dvblogic.com";
 };

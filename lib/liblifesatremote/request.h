@@ -27,7 +27,7 @@
 #include <vector>
 #include "scheduling.h"
 
-namespace dvblinkremote {
+namespace lifesatremote {
   /** 
     * Base class for DVBLink Client requests.
     */

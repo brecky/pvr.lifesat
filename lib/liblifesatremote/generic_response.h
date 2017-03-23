@@ -24,9 +24,9 @@
 #pragma once
 
 #include <string>
-#include "dvblinkremote.h"
+#include "lifesatremote.h"
 
-namespace dvblinkremote {
+namespace lifesatremote {
   class GenericResponse
   {
   public:

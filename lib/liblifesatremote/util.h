@@ -29,7 +29,7 @@
 #include <cstdio>
 #include "tinyxml2.h"
 
-namespace dvblinkremote {
+namespace lifesatremote {
   class Util {
   public:
     static bool ConvertToInt(const std::string& s, int& value);

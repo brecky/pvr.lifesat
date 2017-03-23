@@ -25,7 +25,7 @@
 #include "HttpPostClient.h"
 #include "base64.h"
 
-using namespace dvblinkremotehttp;
+using namespace lifesatremotehttp;
 using namespace ADDON;
 
 #ifdef TARGET_WINDOWS

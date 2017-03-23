@@ -28,27 +28,27 @@
 /**
   * Namespace for HTTP specific functionality in the DVBLink Remote API library.
   */
-namespace dvblinkremotehttp 
+namespace lifesatremotehttp 
 {
   /**
     * A constant string representing the HTTP method for post-requests.
     */
-  const std::string DVBLINK_REMOTE_HTTP_POST_METHOD = "POST";
+  const std::string LIFESAT_REMOTE_HTTP_POST_METHOD = "POST";
 
   /**
     * A constant string representing the name of the HTTP header Accept.
     */
-  const std::string DVBLINK_REMOTE_HTTP_HEADER_ACCEPT = "Accept";
+  const std::string LIFESAT_REMOTE_HTTP_HEADER_ACCEPT = "Accept";
 
   /**
     * A constant string representing the name of the HTTP header Accept-Charset.
     */
-  const std::string DVBLINK_REMOTE_HTTP_HEADER_ACCEPT_CHARSET = "Accept-Charset";
+  const std::string LIFESAT_REMOTE_HTTP_HEADER_ACCEPT_CHARSET = "Accept-Charset";
 
   /**
     * A constant string representing the name of the HTTP header Content-Type.
     */
-  const std::string DVBLINK_REMOTE_HTTP_HEADER_CONTENT_TYPE = "Content-Type";
+  const std::string LIFESAT_REMOTE_HTTP_HEADER_CONTENT_TYPE = "Content-Type";
 
   /**
     * Class for defining a HTTP web request.
@@ -59,7 +59,7 @@ namespace dvblinkremotehttp
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremotehttp::HttpWebRequest class.
+      * Initializes a new instance of the lifesatremotehttp::HttpWebRequest class.
       * @param url A constant string representing the URL for which the request will be sent.
       */
     HttpWebRequest(const std::string& url);
@@ -89,7 +89,7 @@ namespace dvblinkremotehttp
 
     /**
       * The HTTP method to be used in request.
-      * @see DVBLINK_REMOTE_HTTP_POST_METHOD for definition of the POST-method.
+      * @see LIFESAT_REMOTE_HTTP_POST_METHOD for definition of the POST-method.
       */
     std::string Method;
 
@@ -127,7 +127,7 @@ namespace dvblinkremotehttp
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremotehttp::HttpWebResponse class.
+      * Initializes a new instance of the lifesatremotehttp::HttpWebResponse class.
       * @param statusCode   A constant integer representing the HTTP response code.
       * @param responseData A constant string reference representing the HTTP response data.
       */

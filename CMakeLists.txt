@@ -21,7 +21,7 @@ add_definitions(-D__STDC_FORMAT_MACROS)
 
 set(LIFESAT_SOURCES src/base64.cpp
                     src/client.cpp
-                    src/DVBLinkClient.cpp
+                    src/LifeSatClient.cpp
                     src/HttpPostClient.cpp
                     src/RecordingStreamer.cpp
                     src/TimeShiftBuffer.cpp)

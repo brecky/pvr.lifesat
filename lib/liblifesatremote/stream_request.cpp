@@ -63,7 +63,7 @@ std::string& StreamRequest::GetStreamType()
 }
 
 RawHttpStreamRequest::RawHttpStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId)
-  : StreamRequest(serverAddress, channelDvbLinkId, clientId, DVBLINK_REMOTE_STREAM_TYPE_RAW_HTTP)
+  : StreamRequest(serverAddress, channelDvbLinkId, clientId, LIFESAT_REMOTE_STREAM_TYPE_RAW_HTTP)
 {
 
 }
@@ -74,7 +74,7 @@ RawHttpStreamRequest::~RawHttpStreamRequest()
 }
 
 RawHttpTimeshiftStreamRequest::RawHttpTimeshiftStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId)
-  : StreamRequest(serverAddress, channelDvbLinkId, clientId, DVBLINK_REMOTE_STREAM_TYPE_RAW_HTTP_TIMESHIFT)
+  : StreamRequest(serverAddress, channelDvbLinkId, clientId, LIFESAT_REMOTE_STREAM_TYPE_RAW_HTTP_TIMESHIFT)
 {
 
 }
@@ -85,7 +85,7 @@ RawHttpTimeshiftStreamRequest::~RawHttpTimeshiftStreamRequest()
 }
 
 RawUdpStreamRequest::RawUdpStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, const std::string& clientAddress, const unsigned short int streamingPort)
-  : m_clientAddress(clientAddress), m_streamingPort(streamingPort), StreamRequest(serverAddress, channelDvbLinkId, clientId, DVBLINK_REMOTE_STREAM_TYPE_RAW_UDP)
+  : m_clientAddress(clientAddress), m_streamingPort(streamingPort), StreamRequest(serverAddress, channelDvbLinkId, clientId, LIFESAT_REMOTE_STREAM_TYPE_RAW_UDP)
 { }
 
 RawUdpStreamRequest::~RawUdpStreamRequest()
@@ -104,7 +104,7 @@ long RawUdpStreamRequest::GetStreamingPort()
 }
 
 MP4StreamRequest::MP4StreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, TranscodingOptions& transcodingOptions)
-	: TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, DVBLINK_REMOTE_STREAM_TYPE_MP4)
+	: TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, LIFESAT_REMOTE_STREAM_TYPE_MP4)
 {
 
 }
@@ -115,7 +115,7 @@ MP4StreamRequest::~MP4StreamRequest()
 }
 
 H264TSStreamRequest::H264TSStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, TranscodingOptions& transcodingOptions)
-    : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, DVBLINK_REMOTE_STREAM_TYPE_H264TS)
+    : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, LIFESAT_REMOTE_STREAM_TYPE_H264TS)
 {
 
 }
@@ -126,7 +126,7 @@ H264TSStreamRequest::~H264TSStreamRequest()
 }
 
 H264TSTimeshiftStreamRequest::H264TSTimeshiftStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, TranscodingOptions& transcodingOptions)
-    : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, DVBLINK_REMOTE_STREAM_TYPE_H264TS_HTTP_TIMESHIFT)
+    : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, LIFESAT_REMOTE_STREAM_TYPE_H264TS_HTTP_TIMESHIFT)
 {
 
 }
@@ -137,7 +137,7 @@ H264TSTimeshiftStreamRequest::~H264TSTimeshiftStreamRequest()
 }
 
 HttpLiveStreamRequest::HttpLiveStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, TranscodingOptions& transcodingOptions)
-  : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, DVBLINK_REMOTE_STREAM_TYPE_IPHONE)
+  : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, LIFESAT_REMOTE_STREAM_TYPE_IPHONE)
 { 
 
 }
@@ -148,7 +148,7 @@ HttpLiveStreamRequest::~HttpLiveStreamRequest()
 }
 
 RealTimeTransportProtocolStreamRequest::RealTimeTransportProtocolStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, TranscodingOptions& transcodingOptions)
-  : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, DVBLINK_REMOTE_STREAM_TYPE_ANDROID)
+  : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, LIFESAT_REMOTE_STREAM_TYPE_ANDROID)
 { 
 
 }
@@ -159,7 +159,7 @@ RealTimeTransportProtocolStreamRequest::~RealTimeTransportProtocolStreamRequest(
 }
 
 WindowsMediaStreamRequest::WindowsMediaStreamRequest(const std::string& serverAddress, const long channelDvbLinkId, const std::string& clientId, TranscodingOptions& transcodingOptions)
-  : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, DVBLINK_REMOTE_STREAM_TYPE_WINPHONE)
+  : TranscodedVideoStreamRequest(serverAddress, channelDvbLinkId, clientId, transcodingOptions, LIFESAT_REMOTE_STREAM_TYPE_WINPHONE)
 { 
   
 }
@@ -178,17 +178,17 @@ bool StreamRequestSerializer::WriteObject(std::string& serializedData, StreamReq
   rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "stream_type", objectGraph.GetStreamType()));
   rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "server_address", objectGraph.GetServerAddress()));
 
-  if (objectGraph.GetStreamType() == DVBLINK_REMOTE_STREAM_TYPE_RAW_UDP) {
+  if (objectGraph.GetStreamType() == LIFESAT_REMOTE_STREAM_TYPE_RAW_UDP) {
     rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "client_address", ((RawUdpStreamRequest&)objectGraph).GetClientAddress()));
     rootElement->InsertEndChild(Util::CreateXmlElementWithText(&GetXmlDocument(), "streaming_port", ((RawUdpStreamRequest&)objectGraph).GetStreamingPort()));
   }
 
-  if (objectGraph.GetStreamType() == DVBLINK_REMOTE_STREAM_TYPE_ANDROID ||
-    objectGraph.GetStreamType() == DVBLINK_REMOTE_STREAM_TYPE_IPHONE ||
-    objectGraph.GetStreamType() == DVBLINK_REMOTE_STREAM_TYPE_MP4 ||
-    objectGraph.GetStreamType() == DVBLINK_REMOTE_STREAM_TYPE_H264TS ||
-    objectGraph.GetStreamType() == DVBLINK_REMOTE_STREAM_TYPE_H264TS_HTTP_TIMESHIFT ||
-    objectGraph.GetStreamType() == DVBLINK_REMOTE_STREAM_TYPE_WINPHONE) {
+  if (objectGraph.GetStreamType() == LIFESAT_REMOTE_STREAM_TYPE_ANDROID ||
+    objectGraph.GetStreamType() == LIFESAT_REMOTE_STREAM_TYPE_IPHONE ||
+    objectGraph.GetStreamType() == LIFESAT_REMOTE_STREAM_TYPE_MP4 ||
+    objectGraph.GetStreamType() == LIFESAT_REMOTE_STREAM_TYPE_H264TS ||
+    objectGraph.GetStreamType() == LIFESAT_REMOTE_STREAM_TYPE_H264TS_HTTP_TIMESHIFT ||
+    objectGraph.GetStreamType() == LIFESAT_REMOTE_STREAM_TYPE_WINPHONE) {
       tinyxml2::XMLElement* xmlTranscoderElement = GetXmlDocument().NewElement("transcoder");
 
       TranscodingOptions to = ((TranscodedVideoStreamRequest&)objectGraph).GetTranscodingOptions();

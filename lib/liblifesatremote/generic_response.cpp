@@ -29,7 +29,7 @@ using namespace lifesatremoteserialization;
 
 GenericResponse::GenericResponse() 
 { 
-  m_statusCode = DVBLINK_REMOTE_STATUS_OK;
+  m_statusCode = LIFESAT_REMOTE_STATUS_OK;
   m_xmlResult = "";
 }
     
@@ -79,7 +79,7 @@ bool GenericResponseSerializer::ReadObject(GenericResponse& object, const std::s
     int statusCode = Util::GetXmlFirstChildElementTextAsInt(elRoot, "status_code");
 
     if (statusCode == -1) {
-      object.SetStatusCode(DVBLINK_REMOTE_STATUS_INVALID_DATA);
+      object.SetStatusCode(LIFESAT_REMOTE_STATUS_INVALID_DATA);
     }
 
     std::string xml_result = std::string(Util::GetXmlFirstChildElementText(elRoot, "xml_result"));

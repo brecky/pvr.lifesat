@@ -24,17 +24,17 @@
 #pragma once
 
 #include <string>
-#include "dvblinkremote.h"
-#include "dvblinkremoteserialization.h"
+#include "lifesatremote.h"
+#include "lifesatremoteserialization.h"
 #include "generic_response.h"
 #include "request.h"
 #include "response.h"
 #include "util.h"
 #include "tinyxml2.h"
 
-using namespace dvblinkremote;
+using namespace lifesatremote;
 
-namespace dvblinkremoteserialization {
+namespace lifesatremoteserialization {
   template <class T>
   class XmlObjectSerializer
   {
@@ -137,7 +137,7 @@ namespace dvblinkremoteserialization {
   class ProgramSerializer
   {
   public:
-    static void Deserialize(XmlObjectSerializer<Response>& objectSerializer, const tinyxml2::XMLElement& element, dvblinkremote::Program& program);
+    static void Deserialize(XmlObjectSerializer<Response>& objectSerializer, const tinyxml2::XMLElement& element, lifesatremote::Program& program);
   };
 
   class StreamRequestSerializer : public XmlObjectSerializer<StreamRequest>
@@ -437,10 +437,10 @@ namespace dvblinkremoteserialization {
   template<class T>
   tinyxml2::XMLElement* XmlObjectSerializer<T>::PrepareXmlDocumentForObjectSerialization(const char* rootElementName)
   {
-    m_xmlDocument->InsertFirstChild(m_xmlDocument->NewDeclaration(DVBLINK_REMOTE_SERIALIZATION_XML_DECLARATION.c_str()));
+    m_xmlDocument->InsertFirstChild(m_xmlDocument->NewDeclaration(LIFESAT_REMOTE_SERIALIZATION_XML_DECLARATION.c_str()));
     tinyxml2::XMLElement* xmlRootElement = m_xmlDocument->NewElement(rootElementName);
-    xmlRootElement->SetAttribute("xmlns:i", DVBLINK_REMOTE_SERIALIZATION_XML_I_NAMESPACE.c_str());
-    xmlRootElement->SetAttribute("xmlns", DVBLINK_REMOTE_SERIALIZATION_XML_NAMESPACE.c_str());
+    xmlRootElement->SetAttribute("xmlns:i", LIFESAT_REMOTE_SERIALIZATION_XML_I_NAMESPACE.c_str());
+    xmlRootElement->SetAttribute("xmlns", LIFESAT_REMOTE_SERIALIZATION_XML_NAMESPACE.c_str());
     m_xmlDocument->InsertEndChild(xmlRootElement);
     return xmlRootElement;
   }

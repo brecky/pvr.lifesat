@@ -26,31 +26,31 @@
 
 using namespace lifesatremote;
 
-IDVBLinkRemoteConnection::~IDVBLinkRemoteConnection()
+ILifeSatRemoteConnection::~ILifeSatRemoteConnection()
 {
 }
 
-IDVBLinkRemoteConnection* DVBLinkRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, DVBLinkRemoteLocker* locker)
+ILifeSatRemoteConnection* LifeSatRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, LifeSatRemoteLocker* locker)
 {
-    return new DVBLinkRemoteCommunication(httpClient, hostAddress, port, locker);
+    return new LifeSatRemoteCommunication(httpClient, hostAddress, port, locker);
 }
 
-IDVBLinkRemoteConnection* DVBLinkRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, DVBLinkRemoteLocker* locker)
+ILifeSatRemoteConnection* LifeSatRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, LifeSatRemoteLocker* locker)
 {
-    return new DVBLinkRemoteCommunication(httpClient, hostAddress, port, username, password, locker);
+    return new LifeSatRemoteCommunication(httpClient, hostAddress, port, username, password, locker);
 }
 
-void DVBLinkRemote::GetCopyrightNotice(std::string& copyright) 
+void LifeSatRemote::GetCopyrightNotice(std::string& copyright) 
 {
   copyright.assign(LIBDVBLINKREMOTE_COPYRIGHT);
 }
 
-void DVBLinkRemote::GetVersion(std::string& version)
+void LifeSatRemote::GetVersion(std::string& version)
 {
   version.assign(LIBDVBLINKREMOTE_VERSION);
 }
 
-void DVBLinkRemote::GetVersion(int& major, int& minor, int& patch)
+void LifeSatRemote::GetVersion(int& major, int& minor, int& patch)
 {
   major = LIBDVBLINKREMOTE_VERSION_MAJOR;
   minor = LIBDVBLINKREMOTE_VERSION_MINOR;

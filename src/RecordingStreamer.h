@@ -30,10 +30,10 @@
 #include "p8-platform/threads/threads.h"
 #include "p8-platform/threads/mutex.h"
 #include "p8-platform/util/util.h"
-#include "libdvblinkremote/dvblinkremote.h"
+#include "liblifesatremote/lifesatremote.h"
 #include "HttpPostClient.h"
 
-class RecordingStreamer: public dvblinkremote::DVBLinkRemoteLocker
+class RecordingStreamer: public lifesatremote::LifeSatRemoteLocker
 {
 public:
   RecordingStreamer(ADDON::CHelper_libXBMC_addon* xbmc, const std::string& client_id, const std::string& hostname,
@@ -59,7 +59,7 @@ protected:
   std::string username_;
   std::string password_;
   HttpPostClient* http_client_;
-  dvblinkremote::IDVBLinkRemoteConnection* dvblink_remote_con_;
+  lifesatremote::ILifeSatRemoteConnection* lifesat_remote_con_;
   long port_;
   time_t prev_check_;
   time_t check_delta_;

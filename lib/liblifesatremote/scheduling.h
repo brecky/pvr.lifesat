@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 
-namespace dvblinkremote {
+namespace lifesatremote {
   /**
     * Abstract base class for schedules. 
     */
@@ -36,7 +36,7 @@ namespace dvblinkremote {
     /**
       * An enum for schedule types.
       */
-    enum DVBLinkScheduleType
+    enum LifeSatScheduleType
     {
       SCHEDULE_TYPE_MANUAL = 0, /**< Used for manual schedules. */ 
       SCHEDULE_TYPE_BY_EPG = 1, /**< Used for electronic program guide (EPG) schedules. */ 
@@ -44,8 +44,8 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::Schedule class.
-      * @param scheduleType a constant DVBLinkScheduleType instance representing the type of 
+      * Initializes a new instance of the lifesatremote::Schedule class.
+      * @param scheduleType a constant LifeSatScheduleType instance representing the type of 
       * schedule.
       * @param channelId a constant string reference representing the channel identifier.
       * @param recordingsToKeep an optional constant integer representing how many recordings to 
@@ -53,11 +53,11 @@ namespace dvblinkremote {
       * @param marginBefore a constant int, specifying a margin in minutes before recording starts (-1 - use default)
       * @param marginAfter a constant int, specifying a margin in minutes after recording ends (-1 - use default)
       */
-    Schedule(const DVBLinkScheduleType scheduleType, const std::string& channelId, const int recordingsToKeep = 0, const int marginBefore = -1, const int marginAfter = -1);
+    Schedule(const LifeSatScheduleType scheduleType, const std::string& channelId, const int recordingsToKeep = 0, const int marginBefore = -1, const int marginAfter = -1);
 
     /**
-      * Initializes a new instance of the dvblinkremote::Schedule class.
-      * @param scheduleType a constant DVBLinkScheduleType instance representing the type of 
+      * Initializes a new instance of the lifesatremote::Schedule class.
+      * @param scheduleType a constant LifeSatScheduleType instance representing the type of 
       * schedule.
       * @param id a constant string reference representing the schedule identifier.
       * @param channelId a constant string reference representing the channel identifier.
@@ -66,7 +66,7 @@ namespace dvblinkremote {
       * @param marginBefore a constant int, specifying a margin in minutes before recording starts (-1 - use default)
       * @param marginAfter a constant int, specifying a margin in minutes after recording ends (-1 - use default)
       */
-    Schedule(const DVBLinkScheduleType scheduleType, const std::string& id, const std::string& channelId, const int recordingsToKeep = 0, const int marginBefore = -1, const int marginAfter = -1);
+    Schedule(const LifeSatScheduleType scheduleType, const std::string& id, const std::string& channelId, const int recordingsToKeep = 0, const int marginBefore = -1, const int marginAfter = -1);
 
     /**
       * Pure virtual destructor for cleaning up allocated memory.
@@ -114,9 +114,9 @@ namespace dvblinkremote {
 
     /**
       * Gets the type for the schedule .
-      * @return DVBLinkScheduleType instance reference
+      * @return LifeSatScheduleType instance reference
       */
-    DVBLinkScheduleType& GetScheduleType();
+    LifeSatScheduleType& GetScheduleType();
 
   protected:
 
@@ -140,7 +140,7 @@ namespace dvblinkremote {
     /**
       * The type of the schedule.
       */
-    DVBLinkScheduleType m_scheduleType;
+    LifeSatScheduleType m_scheduleType;
   };
   
   /**
@@ -152,7 +152,7 @@ namespace dvblinkremote {
     /**
       * An enum to be used for constructing a bitflag to be used for defining repeated recordings for manual schedules.
       */
-    enum DVBLinkManualScheduleDayMask 
+    enum LifeSatManualScheduleDayMask 
     {
       MANUAL_SCHEDULE_DAY_MASK_SUNDAY = 1, /**< Sunday schedule. */
       MANUAL_SCHEDULE_DAY_MASK_MONDAY = 2, /**< Monday schedule. */
@@ -165,26 +165,26 @@ namespace dvblinkremote {
     };
 
     /**
-      * Initializes a new instance of the dvblinkremote::ManualSchedule class.
+      * Initializes a new instance of the lifesatremote::ManualSchedule class.
       * @param channelId a constant string reference representing the channel identifier.
       * @param startTime a constant long representing the start time of the schedule.
       * @param duration a constant long representing the duration of the schedule. 
       * @param dayMask a constant long representing the day bitflag of the schedule.
-      * \remark Construct the \p dayMask parameter by using bitwize operations on the DVBLinkManualScheduleDayMask.
-      * @see DVBLinkManualScheduleDayMask
+      * \remark Construct the \p dayMask parameter by using bitwize operations on the LifeSatManualScheduleDayMask.
+      * @see LifeSatManualScheduleDayMask
       * @param title of schedule
       */
     ManualSchedule(const std::string& channelId, const long startTime, const long duration, const long dayMask, const std::string& title = "", const int recordingsToKeep = 0, const int marginBefore = -1, const int marginAfter = -1);
 
     /**
-      * Initializes a new instance of the dvblinkremote::ManualSchedule class.
+      * Initializes a new instance of the lifesatremote::ManualSchedule class.
       * @param id a constant string reference representing the schedule identifier.
       * @param channelId a constant string reference representing the channel identifier.
       * @param startTime a constant long representing the start time of the schedule.
       * @param duration a constant long representing the duration of the schedule. 
       * @param dayMask a constant long representing the day bitflag of the schedule.
-      * \remark Construct the \p dayMask parameter by using bitwize operations on the DVBLinkManualScheduleDayMask.
-      * @see DVBLinkManualScheduleDayMask
+      * \remark Construct the \p dayMask parameter by using bitwize operations on the LifeSatManualScheduleDayMask.
+      * @see LifeSatManualScheduleDayMask
       * @param title of schedule
       */
     ManualSchedule(const std::string& id, const std::string& channelId, const long startTime, const long duration, const long dayMask, const std::string& title = "", const int recordingsToKeep = 0, const int marginBefore = -1, const int marginAfter = -1);
@@ -241,7 +241,7 @@ namespace dvblinkremote {
   {
   public:
     /**
-      * Initializes a new instance of the dvblinkremote::EpgSchedule class.
+      * Initializes a new instance of the lifesatremote::EpgSchedule class.
       * @param channelId a constant string reference representing the channel identifier.
       * @param programId a constant string reference representing the program identifier.
       * @param repeat an optional constant boolean representing if the schedule should be 
@@ -256,7 +256,7 @@ namespace dvblinkremote {
       EpgSchedule(const std::string& channelId, const std::string& programId, const bool repeat = false, const bool newOnly = false, const bool recordSeriesAnytime = true, const int recordingsToKeep = 0, const int marginBefore = -1, const int marginAfter = -1);
 
     /**
-      * Initializes a new instance of the dvblinkremote::EpgSchedule class.
+      * Initializes a new instance of the lifesatremote::EpgSchedule class.
       * @param id a constant string reference representing the schedule identifier.
       * @param channelId a constant string reference representing the channel identifier.
       * @param programId a constant string reference representing the program identifier.
@@ -319,7 +319,7 @@ namespace dvblinkremote {
     /**
       * An enum to be used for constructing a genre search bitflag field
       */
-    enum DVBLinkByPatternScheduleGenreMask 
+    enum LifeSatByPatternScheduleGenreMask 
     {
 		DRGC_ANY                                    = 0x00000000,
 		DRGC_NEWS                                   = 0x00000001,
