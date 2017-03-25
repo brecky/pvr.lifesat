@@ -61,13 +61,14 @@ namespace lifesatremoteserialization {
     static bool Deserialize(const std::string& dvbLinkCommand, const std::string& serializedData, Response& response);
   };
 
+
   class GenericResponseSerializer : public XmlObjectSerializer<GenericResponse>
   {
   public:
     GenericResponseSerializer();
     bool ReadObject(GenericResponse& object, const std::string& xml);
   };
-
+    
   class GetChannelsRequestSerializer : public XmlObjectSerializer<GetChannelsRequest>
   {
   public:

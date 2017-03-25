@@ -78,13 +78,35 @@ char *url_encode(const char *str)
 }
 
 HttpPostClient::HttpPostClient(CHelper_libXBMC_addon *XBMC, const std::string& server, const int serverport,
-    const std::string& username, const std::string& password)
+    const std::string& username, const std::string& password, const std::string& token)
 {
   this->XBMC = XBMC;
   m_server = server;
   m_serverport = serverport;
   m_username = username;
   m_password = password;
+  m_token = token;
+}
+
+int HttpPostClient::SendPostApiRequest(lifesatremotehttp::HttpWebRequest & request)
+{
+
+    int ret_code = -100;
+    std::string buffer;
+    std::string message;
+    char content_header[100];
+
+    buffer.append("POST /oauth/token HTTP/1.0\r\n");
+    sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int)m_serverport);
+    buffer.append(content_header);
+    buffer.append("Content-Type: application/form-data\r\n");
+    sprintf(content_header, "Content-Length: %ld\r\n", request.ContentLength);
+    buffer.append(content_header);
+    buffer.append("\r\n");
+    buffer.append(request.GetRequestData());
+
+
+    return 0;
 }
 
 int HttpPostClient::SendPostRequest(HttpWebRequest& request)
@@ -219,10 +241,18 @@ int HttpPostClient::SendPostRequest(HttpWebRequest& request)
   return ret_code;
 }
 
+
+
 bool HttpPostClient::SendRequest(HttpWebRequest& request)
 {
   m_lastReqeuestErrorCode = SendPostRequest(request);
   return (m_lastReqeuestErrorCode == 200);
+}
+
+bool HttpPostClient::SendApiRequest(lifesatremotehttp::HttpWebRequest & request)
+{
+    m_lastReqeuestErrorCode = SendPostApiRequest(request);
+    return (m_lastReqeuestErrorCode == 200);
 }
 
 HttpWebResponse* HttpPostClient::GetResponse()

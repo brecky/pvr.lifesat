@@ -10,11 +10,13 @@ find_package(Kodi REQUIRED)
 find_package(kodiplatform REQUIRED)
 find_package(p8-platform REQUIRED)
 find_package(TinyXML2 REQUIRED)
+find_package(JsonCpp REQUIRED)
 
 include_directories(${kodiplatform_INCLUDE_DIRS}
                     ${p8-platform_INCLUDE_DIRS}
                     ${KODI_INCLUDE_DIR}
                     ${TINYXML2_INCLUDE_DIRS}
+					${JSONCPP_INCLUDE_DIRS}
                     ${PROJECT_SOURCE_DIR}/lib)
 
 add_definitions(-D__STDC_FORMAT_MACROS)
@@ -27,7 +29,7 @@ set(LIFESAT_SOURCES src/base64.cpp
                     src/TimeShiftBuffer.cpp)
 
 add_subdirectory(lib/liblifesatremote)
-set(DEPLIBS ${p8-platform_LIBRARIES} lifesatremote ${TINYXML2_LIBRARIES})
+set(DEPLIBS ${p8-platform_LIBRARIES} lifesatremote ${TINYXML2_LIBRARIES} ${JSONCPP_LIBRARIES})
 build_addon(pvr.lifesat LIFESAT DEPLIBS)
 
 include(CPack)

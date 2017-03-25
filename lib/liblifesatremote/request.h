@@ -33,6 +33,32 @@ namespace lifesatremote {
     */
   class Request { };
 
+  class GetTokenRequest : public Request
+  {
+  public:
+      /**
+      * Initializes a new instance of the dvblinkremote::GetChannelsRequest class.
+      */
+      GetTokenRequest();
+
+      /**
+      * Destructor for cleaning up allocated memory.
+      */
+      ~GetTokenRequest();
+
+      void SetUserName(std::string username) { m_username = username; }
+      void SetPassword(std::string password) { m_password = password; }
+
+  private:
+     std::string m_grand_type = "password";
+     int m_client_id = 2;
+     std::string m_client_secret= "GU7nJwgwg5Y1Lee3OWnLsPrYUcxGarkpKZFGpmhl";
+     std::string m_username = "";
+     std::string m_password = "";
+
+  };
+
+
   /**
     * Class for defining a get channels request. 
     * This is used as input parameter for the IDVBLinkRemoteConnection::GetChannels method.

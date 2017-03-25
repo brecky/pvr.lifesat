@@ -6,6 +6,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET(SOURCES channel.cpp
             lifesatremotecommunication.cpp
+            lifesatremoteapicommunication.cpp
             lifesatremote.cpp
             lifesatremotehttp.cpp
             epg.cpp

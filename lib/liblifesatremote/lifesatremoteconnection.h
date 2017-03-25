@@ -42,8 +42,9 @@ namespace lifesatremote
   {
   public:
       LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, LifeSatRemoteLocker* locker);
-      LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, LifeSatRemoteLocker* locker);
-    virtual ~LifeSatRemoteCommunication();
+      LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, const std::string& client_id, const std::string& client_secret, LifeSatRemoteLocker* locker);
+       
+      virtual ~LifeSatRemoteCommunication();
 
     LifeSatRemoteStatusCode GetChannels(const GetChannelsRequest& request, ChannelList& response, std::string* err_str);
     LifeSatRemoteStatusCode SearchEpg(const EpgSearchRequest& request, EpgSearchResult& response, std::string* err_str);
@@ -66,6 +67,7 @@ namespace lifesatremote
     LifeSatRemoteStatusCode SetRecordingSettings(const SetRecordingSettingsRequest& request, std::string* err_str);
     LifeSatRemoteStatusCode GetFavorites(const GetFavoritesRequest& request, ChannelFavorites& response, std::string* err_str);
     LifeSatRemoteStatusCode GetServerInfo(const GetServerInfoRequest& request, ServerInfo& response, std::string* err_str);
+    LifeSatRemoteStatusCode GetToken(const GetTokenRequest& request, Token& response, std::string* err_str);
 
   private:
     lifesatremotehttp::HttpClient& m_httpClient;
@@ -73,6 +75,8 @@ namespace lifesatremote
     long m_port;
     std::string m_username;
     std::string m_password;
+    std::string m_client_id;
+    std::string m_client_secret;
     char m_errorBuffer[lifesatremote::LIFESAT_REMOTE_DEFAULT_BUFFER_SIZE];
     LifeSatRemoteLocker* m_locker;
 
@@ -81,6 +85,8 @@ namespace lifesatremote
     LifeSatRemoteStatusCode DeserializeResponseData(const std::string& command, const std::string& responseData, Response& responseObject);
     std::string GetUrl();
     std::string CreateRequestDataParameter(const std::string& command, const std::string& xmlData);
+    std::string CreateRequestApiDataParameter(const std::string& command, const std::string& apiData);
+
     std::string GetStatusCodeDescription(LifeSatRemoteStatusCode status);
     void WriteError(const char* format, ...);
     void ClearErrorBuffer();

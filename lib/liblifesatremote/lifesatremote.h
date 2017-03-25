@@ -92,6 +92,11 @@ namespace lifesatremote
   const std::string LIFESAT_REMOTE_HTTP_XML_PARAM_QUERYSTRING = "xml_param";
 
   /**
+  * A constant string representing the LifeSat command for retrieving channels.
+  */
+  const std::string LIFESAT_REMOTE_GET_TOKEN_CMD = "oauth/token";
+
+  /**
     * A constant string representing the LifeSat command for retrieving channels. 
     */
   const std::string LIFESAT_REMOTE_GET_CHANNELS_CMD = "get_channels";
@@ -488,6 +493,9 @@ namespace lifesatremote
     */
     virtual LifeSatRemoteStatusCode GetServerInfo(const GetServerInfoRequest& request, ServerInfo& response, std::string* err_str) = 0;
 
+    
+    virtual LifeSatRemoteStatusCode GetToken(const GetTokenRequest& request, Token& response, std::string* err_str) = 0;
+
     /**
       * Gets a description of the last occured error.
       * @param[in,out] err A string reference representing the string where the description of the last error will be provided.
@@ -528,7 +536,7 @@ namespace lifesatremote
       * @param[in] username     A constanst string reference representing the user name to be used for authentication towards the LifeSat Connect! server.
       * @param[in] password     A constanst string reference representing the password to be used for authentication towards the LifeSat Connect! server.
       */
-      static ILifeSatRemoteConnection* Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, LifeSatRemoteLocker* locker);
+      static ILifeSatRemoteConnection* Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, const std::string& client_id, const std::string& client_secret, LifeSatRemoteLocker* locker);
 
     /**
       * Gets the copyright notice of the LifeSat Remote API library.

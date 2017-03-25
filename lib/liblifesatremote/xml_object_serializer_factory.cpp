@@ -30,10 +30,13 @@ bool XmlObjectSerializerFactory::Serialize(const std::string& dvbLinkCommand, co
   bool result = true;
   XmlObjectSerializer<Request>* requestSerializer = NULL;
 
+    
+
   if (dvbLinkCommand == LIFESAT_REMOTE_GET_CHANNELS_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new GetChannelsRequestSerializer();
     result = ((GetChannelsRequestSerializer*)requestSerializer)->WriteObject(serializedData, (GetChannelsRequest&)request);
   }
+ 
   else if (dvbLinkCommand == LIFESAT_REMOTE_SEARCH_EPG_CMD) {
     requestSerializer = (XmlObjectSerializer<Request>*)new EpgSearchRequestSerializer();
     result = ((EpgSearchRequestSerializer*)requestSerializer)->WriteObject(serializedData, (EpgSearchRequest&)request);

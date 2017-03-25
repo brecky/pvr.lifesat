@@ -26,6 +26,7 @@
 #include "LifeSatClient.h"
 #include "p8-platform/util/StdString.h"
 #include "libKODI_guilib.h"
+#include <json/json.h>
 
 using namespace lifesatremote;
 using namespace lifesatremotehttp;
@@ -81,14 +82,28 @@ LifeSatClient::LifeSatClient(CHelper_libXBMC_addon* xbmc, CHelper_libXBMC_pvr* p
   transcoding_supported_ = false;
   transcoding_recordings_supported_ = false;
   timer_idx_seed_ = PVR_TIMER_NO_CLIENT_INDEX + 10; //arbitrary seed number, greater than 
-
-  m_httpClient = new HttpPostClient(XBMC, hostname, port, username, password);
+  m_client_id = "2";
+  m_client_secret = "GU7nJwgwg5Y1Lee3OWnLsPrYUcxGarkpKZFGpmhl";
+  m_token = "";
+  m_httpClient = new HttpPostClient(XBMC, hostname, port, username, password, m_token);
   m_lifesatRemoteCommunication = LifeSatRemote::Connect((HttpClient&) *m_httpClient, m_hostname.c_str(), port,
-      username.c_str(), password.c_str(), this);
+      username.c_str(), password.c_str(), m_client_id, m_client_secret, this);
 
   LifeSatRemoteStatusCode status;
   m_timerCount = -1;
   m_recordingCount = -1;
+  // get token
+  GetTokenRequest token_request;
+  token_request.SetUserName(username);
+  token_request.SetPassword(password);
+  Token token;
+  
+    
+ if ((status = m_lifesatRemoteCommunication->GetToken(token_request,token, NULL)) == LIFESAT_REMOTE_STATUS_OK)
+ {
+     
+ }
+
 
   //get server version and build
   GetServerInfoRequest server_info_request;

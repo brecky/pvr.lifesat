@@ -176,6 +176,9 @@ private:
   CHelper_libKODI_guilib *GUI;
   std::string m_clientname;
   std::string m_hostname;
+  std::string m_client_id;
+  std::string m_client_secret;
+  std::string m_token;
   LiveStreamerBase* m_live_streamer;
   bool m_add_episode_to_rec_title;
   bool m_group_recordings_by_series;

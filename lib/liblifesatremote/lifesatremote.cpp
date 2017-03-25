@@ -35,9 +35,9 @@ ILifeSatRemoteConnection* LifeSatRemote::Connect(lifesatremotehttp::HttpClient& 
     return new LifeSatRemoteCommunication(httpClient, hostAddress, port, locker);
 }
 
-ILifeSatRemoteConnection* LifeSatRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, LifeSatRemoteLocker* locker)
+ILifeSatRemoteConnection* LifeSatRemote::Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, const std::string& client_id, const std::string& client_secret, LifeSatRemoteLocker* locker)
 {
-    return new LifeSatRemoteCommunication(httpClient, hostAddress, port, username, password, locker);
+    return new LifeSatRemoteCommunication(httpClient, hostAddress, port, username, password, client_id, client_secret,  locker);
 }
 
 void LifeSatRemote::GetCopyrightNotice(std::string& copyright) 

@@ -32,8 +32,7 @@ namespace lifesatremote {
     * Base class for DVBLink Client responses.
     */
   class Response { };
-
-  /**
+ /**
     * Represent a DVBLink channel.
     */
   class Channel
@@ -1434,5 +1433,61 @@ namespace lifesatremote {
       std::string version_;
       std::string build_;
   };
+
+
+  class Token : public Response
+  {
+  public:
+      /**
+      * Initializes a new instance of the lifesatremote::Channel class.
+      * @param id a constant string reference representing the generic identifier of the channel.
+      * @param dvbLinkId a constant long representing the DVBLink identifier of the channel.
+      * @param name a constant string reference representing the name of the channel.
+      * @param type a constant DVBLinkChannelType instance representing the type of the channel.
+      * @param number an optional constant integer representing the number of the channel.
+      * @param subNumber an optional constant integer representing the sub-number of the channel.
+      */
+      Token();
+      /**
+      * Initializes a new instance of the lifesatremote::Channel class by coping another
+      * lifesatremote::Channel instance.
+      * @param channel a lifesatremote::Channel reference.
+      */
+      Token(Token& token);
+
+      /**
+      * Destructor for cleaning up allocated memory.
+      */
+      ~Token();
+
+
+      /**
+      * Gets the identifier of the channel.
+      * @return Channel identifier
+      */
+      std::string& GetAccessToken();
+
+      /**
+      * Gets the DVBLink identifier of the channel.
+      * @return DVBLink channel identifier
+      */
+      long GetExpiried();
+
+      /**
+      * Gets the name of the channel.
+      * @return Channel name
+      */
+      std::string& GetRefressToken();
+
+
+  private:
+      long m_expiried;
+      std::string m_access_token;
+      std::string m_refress_token;
+
+  };
+
+
+
 
 }

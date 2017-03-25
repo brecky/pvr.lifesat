@@ -9,9 +9,13 @@
     <import addon="xbmc.pvr" version="5.2.1"/>
 	<import addon="kodi.guilib" version="5.10.0"/>
   </requires>
-  <extension
-    point="xbmc.pvrclient"
-    library_windows="pvr.lifesat.dll"/>
+ 	<extension
+		point="xbmc.pvrclient"
+		library_linux="pvr.lifesat.so"
+		library_osx="pvr.lifesat.dylib"
+		library_freebsd="pvr.lifesat.so"
+		library_windx="pvr.lifesat.dll"
+		library_android="libpvr.lifesat.so" />
   <extension point="xbmc.addon.metadata">
     <summary lang="af_ZA">PVR Inprop vir LifeSat</summary>
     <summary lang="bg_BG">ПВР добавка за LifeSat</summary>
@@ -172,6 +176,6 @@
     <disclaimer lang="vi_VN">Đây là phần mềm không ổn định! Các tác giả không chịu trách nhiệm đối với bản ghi chương trình thất bại, hẹn giờ không chính xác, giờ lãng phí, hoặc bất kỳ tác dụng không mong muốn khác..</disclaimer>
     <disclaimer lang="zh_CN">这是不稳定版的软件！作者不对录像失败、错误定时造成时间浪费或其它不良影响负责。</disclaimer>
     <disclaimer lang="zh_TW">這是測試版軟體！其原創作者並無法對於以下情況負責，包含：錄影失敗，不正確的定時設定，多餘時數，或任何產生的其它不良影響...</disclaimer>
-    <platform>windows</platform>
+    <platform>all</platform>
   </extension>
 </addon>
