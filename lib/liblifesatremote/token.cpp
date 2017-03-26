@@ -2,6 +2,7 @@
 #include "request.h"
 #include "response.h"
 #include "xml_object_serializer.h"
+
 using namespace lifesatremote;
 using namespace lifesatremoteserialization;
 
@@ -14,6 +15,7 @@ GetTokenRequest::~GetTokenRequest()
 {
 
 }
+
 
 Token::Token()
 {

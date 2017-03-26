@@ -180,6 +180,8 @@ namespace lifesatremotehttp
       */
     virtual bool SendRequest(HttpWebRequest& request) = 0;
 
+    virtual bool SendApiRequest(HttpWebRequest& request) = 0;
+
     /**
       * Get the HTTP response returned from a HTTP request.
       @return HttpWebResponse pointer representing the response returned from server.

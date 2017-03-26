@@ -23,10 +23,13 @@
  *
  */
 #include <memory>
+
+#include <json/json.h>
+
 #include "LifeSatClient.h"
 #include "p8-platform/util/StdString.h"
 #include "libKODI_guilib.h"
-#include <json/json.h>
+
 
 using namespace lifesatremote;
 using namespace lifesatremotehttp;
@@ -94,8 +97,6 @@ LifeSatClient::LifeSatClient(CHelper_libXBMC_addon* xbmc, CHelper_libXBMC_pvr* p
   m_recordingCount = -1;
   // get token
   GetTokenRequest token_request;
-  token_request.SetUserName(username);
-  token_request.SetPassword(password);
   Token token;
   
     
@@ -1739,3 +1740,7 @@ LifeSatClient::~LifeSatClient(void)
     SAFE_DELETE(m_live_streamer);
   }
 }
+
+
+
+

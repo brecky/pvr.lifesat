@@ -31,7 +31,8 @@ SET(SOURCES channel.cpp
             transcoded_video_stream_request.cpp
             transcoding_options.cpp
             util.cpp
-            xml_object_serializer_factory.cpp)
+            xml_object_serializer_factory.cpp
+            token.cpp)
 
 if(NOT WIN32)
   add_options(ALL_LANGUAGES ALL_BUILDS "-fPIC")

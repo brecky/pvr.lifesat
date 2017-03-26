@@ -27,6 +27,7 @@
 #include <vector>
 #include "scheduling.h"
 
+
 namespace lifesatremote {
   /** 
     * Base class for DVBLink Client requests.
@@ -48,7 +49,10 @@ namespace lifesatremote {
 
       void SetUserName(std::string username) { m_username = username; }
       void SetPassword(std::string password) { m_password = password; }
-
+      void SetGrandType(std::string grand_type) { m_client_secret = grand_type; }
+      std::string GetGrandType() { return  m_grand_type; }
+      std::string GetUserName() { return m_username; }
+      std::string GetPassword() { return m_password; }
   private:
      std::string m_grand_type = "password";
      int m_client_id = 2;

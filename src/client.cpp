@@ -31,6 +31,9 @@
 #include "p8-platform/util/timeutils.h"
 #include "RecordingStreamer.h"
 
+
+
+
 using namespace std;
 using namespace ADDON;
 
@@ -949,5 +952,7 @@ bool SeekTime(double, bool, double*)
 void SetSpeed(int)
 {
 }
+
+
 
 }
