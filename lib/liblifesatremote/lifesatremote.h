@@ -76,6 +76,8 @@ namespace lifesatremote
     */
   const std::string LIFESAT_REMOTE_HTTP_METHOD = lifesatremotehttp::LIFESAT_REMOTE_HTTP_POST_METHOD;
   
+  const std::string LIFESAT_REMOTE_HTTP_ACCEPT = "application/json";
+
   /**
     * A constant string representing the MIME type of the data sent via LifeSat Remote API requests.
     */
@@ -494,7 +496,7 @@ namespace lifesatremote
     virtual LifeSatRemoteStatusCode GetServerInfo(const GetServerInfoRequest& request, ServerInfo& response, std::string* err_str) = 0;
 
     
-    virtual LifeSatRemoteStatusCode GetToken(const GetTokenRequest& request, Token& response, std::string* err_str) = 0;
+    virtual LifeSatRemoteStatusCode GetToken(std::string* err_str) = 0;
 
     /**
       * Gets a description of the last occured error.
@@ -536,7 +538,11 @@ namespace lifesatremote
       * @param[in] username     A constanst string reference representing the user name to be used for authentication towards the LifeSat Connect! server.
       * @param[in] password     A constanst string reference representing the password to be used for authentication towards the LifeSat Connect! server.
       */
-      static ILifeSatRemoteConnection* Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, const std::string& client_id, const std::string& client_secret, LifeSatRemoteLocker* locker);
+      static ILifeSatRemoteConnection* Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, LifeSatRemoteLocker* locker);
+
+
+      static ILifeSatRemoteConnection* Connect(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& access_token, LifeSatRemoteLocker* locker);
+
 
     /**
       * Gets the copyright notice of the LifeSat Remote API library.

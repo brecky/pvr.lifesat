@@ -6,7 +6,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET(SOURCES channel.cpp
             lifesatremotecommunication.cpp
-            lifesatremoteapicommunication.cpp
             lifesatremote.cpp
             lifesatremotehttp.cpp
             epg.cpp
@@ -32,12 +31,12 @@ SET(SOURCES channel.cpp
             transcoding_options.cpp
             util.cpp
             xml_object_serializer_factory.cpp
-            token.cpp)
+            token.cpp
+            json.hpp)
 
 if(NOT WIN32)
   add_options(ALL_LANGUAGES ALL_BUILDS "-fPIC")
 endif()
-
 ADD_LIBRARY(lifesatremote STATIC ${SOURCES})
 
 if(WIN32)

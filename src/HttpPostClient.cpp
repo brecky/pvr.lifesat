@@ -23,6 +23,7 @@
  */
 
 #include "HttpPostClient.h"
+#include "base64.h"
 
 using namespace lifesatremotehttp;
 using namespace ADDON;
@@ -77,88 +78,53 @@ char *url_encode(const char *str)
 }
 
 HttpPostClient::HttpPostClient(CHelper_libXBMC_addon *XBMC, const std::string& server, const int serverport,
-    const std::string& username, const std::string& password, const std::string& token)
+    const std::string& username, const std::string& password)
 {
   this->XBMC = XBMC;
   m_server = server;
   m_serverport = serverport;
   m_username = username;
   m_password = password;
-  m_token = token;
-}
-#define BOUNDARY   "----------Evil_B0uNd4Ry_$"
-#define COMPNAME   "compname"
-#define PROGRAM    "program"
-#define FILENAME   "file"
-#define DUMMY_DATA "c2FzYXNhc2FzZGRmZGZkY2Q="
-#define DUMMY_FILE "dummy.txt"
-std::string constructBody() {
-    std::string body;
-    std::string CRLF = "\r\n";
-
-    // first we add the args
-    //body.append("--" + std::string(BOUNDARY) + CRLF);
-    //body.append("Content-Disposition: form-data; name=\"" + std::string(COMPNAME) + "\"" + CRLF);
-    //body.append(CRLF);
-    //body.append("grant_type" + CRLF);
-    //body.append("--" + std::string(BOUNDARY) + CRLF);
-    //body.append("Content-Disposition: form-data; name=\"" + std::string(PROGRAM) + "\"" + CRLF);
-    //body.append(CRLF);
-    //body.append("client_id" + CRLF);
-
-    //// now we add the file
-    //body.append("--" + std::string(BOUNDARY) + CRLF);
-    //body.append("Content-Disposition: form-data; name=\"" + std::string(FILENAME) + "\"; filename=\"" + std::string(DUMMY_FILE) + "\"" + CRLF);
-    //body.append("Content-Type: text/plain" + CRLF);
-    //body.append(CRLF);
-    //body.append(DUMMY_DATA + CRLF);
-    //body.append("--" + std::string(BOUNDARY) + "--" + CRLF);
-    //body.append(CRLF);
-
-    //    printf(body.c_str()); exit(0);
-
-    body.append("--" + std::string(BOUNDARY) + CRLF);
-    body.append("Content-Disposition: form-data; name=\"grant_type\"" + CRLF);
-    body.append(CRLF);
-    body.append("password" + CRLF);
-  
-    body.append("--" + std::string(BOUNDARY) + CRLF);
-    body.append("Content-Disposition: form-data; name=\"client_id\"" + CRLF);
-    body.append(CRLF);
-    body.append("2" + CRLF);
-  
-    body.append("--" + std::string(BOUNDARY) + CRLF);
-    body.append("Content-Disposition: form-data; name=\"client_secret\"" + CRLF);
-    body.append(CRLF);
-    body.append("GU7nJwgwg5Y1Lee3OWnLsPrYUcxGarkpKZFGpmhl" + CRLF);
-  
-    body.append("--" + std::string(BOUNDARY) + CRLF);
-    body.append("Content-Disposition: form-data; name=\"username\"" + CRLF);
-    body.append(CRLF);
-    body.append("tiborfodor@gmail.com" + CRLF);
-  
-    body.append("--" + std::string(BOUNDARY) + CRLF);
-    body.append("Content-Disposition: form-data; name=\"password\"" + CRLF);
-    body.append(CRLF);
-    body.append("pimpolino" + CRLF);
-    body.append("--" + std::string(BOUNDARY) + CRLF);
-    body.append(CRLF);
-
-
-    return body;
 }
 
-int HttpPostClient::SendPostApiRequest(lifesatremotehttp::HttpWebRequest & request)
+HttpPostClient::HttpPostClient(ADDON::CHelper_libXBMC_addon * XBMC, const std::string & server, const int serverport, const std::string & access_token)
 {
+    this->XBMC = XBMC;
+    m_server = server;
+    m_serverport = serverport;
+    m_access_token = access_token;
+}
 
+int HttpPostClient::SendPostRequest(HttpWebRequest& request)
+{
+  //int ret_code = -100;
+  //std::string buffer;
+  //std::string message;
+  //char content_header[100];
 
+  //buffer.append("POST /cs/ HTTP/1.0\r\n");
+  //sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int) m_serverport);
+  //buffer.append(content_header);
+  //buffer.append("Content-Type: application/x-www-form-urlencoded\r\n");
+  //if (m_username.compare("") != 0)
+  //{
+  //  sprintf(content_header, "%s:%s", m_username.c_str(), m_password.c_str());
+  // // sprintf(content_header, "Authorization: Basic %s\r\n",
+  //  //    base64_encode((const char*) content_header, strlen(content_header)).c_str());
+  //  buffer.append(content_header);
+  //}
+  //sprintf(content_header, "Content-Length: %ld\r\n", request.ContentLength);
+  //buffer.append(content_header);
+  //buffer.append("\r\n");
+  //buffer.append(request.GetRequestData());
+  
     int ret_code = -100;
     std::string buffer;
     std::string message;
     char content_header[100];
     std::string myrequest = "grant_type=password&client_id=2&client_secret=GU7nJwgwg5Y1Lee3OWnLsPrYUcxGarkpKZFGpmhl&username=test%40test.com&password=123456";
     //std::string body = constructBody();
-    
+
     buffer.append("POST /oauth/token HTTP/1.0\r\n");
     sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int)m_serverport);
     buffer.append("Accept: */*\r\n");
@@ -170,139 +136,9 @@ int HttpPostClient::SendPostApiRequest(lifesatremotehttp::HttpWebRequest & reque
     sprintf(content_header, "Content-Length: %ld\r\n", myrequest.length());
     buffer.append(content_header);
     buffer.append("\r\n");
-   // buffer.append(request.GetRequestData());
+    // buffer.append(request.GetRequestData());
     buffer.append(myrequest);
-#ifdef TARGET_WINDOWS
-    {
-        WSADATA WsaData;
-        WSAStartup(0x0101, &WsaData);
-    }
-#endif
 
-    sockaddr_in sin;
-    int sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock == -1)
-    {
-        return -100;
-    }
-    sin.sin_family = AF_INET;
-    sin.sin_port = htons((unsigned short)m_serverport);
-
-    struct hostent * host_addr = gethostbyname(m_server.c_str());
-    if (host_addr == NULL)
-    {
-        return -103;
-    }
-    sin.sin_addr.s_addr = *((int*)*host_addr->h_addr_list);
-
-    if (connect(sock, (const struct sockaddr *) &sin, sizeof(sockaddr_in)) == -1)
-    {
-        return -101;
-    }
-
-    SEND_RQ(buffer.c_str());
-
-    const int read_buffer_size = 4096;
-    char read_buffer[read_buffer_size];
-    int read_size = 0;
-    std::string response;
-    while ((read_size = recv(sock, read_buffer, read_buffer_size, 0)) > 0)
-        response.append(read_buffer, read_buffer + read_size);
-
-    close(sock);
-
-    if (response.size() > 0)
-    {
-        //header
-        std::string::size_type n = response.find("\r\n");
-        if (n != std::string::npos)
-        {
-            std::string header = response.substr(0, n);
-            if (header.find("200 OK") != std::string::npos)
-                ret_code = 200;
-            if (header.find("401 Unauthorized") != std::string::npos)
-                ret_code = -401;
-
-            if (ret_code == 200)
-            {
-                //body
-                const char* body_sep = "\r\n\r\n";
-                n = response.find(body_sep);
-                if (n != std::string::npos)
-                {
-                    m_responseData.assign(response.c_str() + n + strlen(body_sep));
-                }
-                else
-                {
-                    ret_code = -105;
-                }
-            }
-        }
-        else
-        {
-            ret_code = -104;
-        }
-    }
-    else
-    {
-        ret_code = -102;
-    }
-
-    //TODO: Use xbmc file code when it allows to post content-type application/x-www-form-urlencoded and authentication
-    /*
-    void* hFile = XBMC->OpenFileForWrite(request.GetUrl().c_str(), 0);
-    if (hFile != NULL)
-    {
-
-    int rc = XBMC->WriteFile(hFile, buffer.c_str(), buffer.length());
-    if (rc >= 0)
-    {
-    std::string result;
-    result.clear();
-    char buffer[1024];
-    while (XBMC->ReadFileString(hFile, buffer, 1023))
-    result.append(buffer);
-
-    }
-    else
-    {
-    XBMC->Log(LOG_ERROR, "can not write to %s",request.GetUrl().c_str());
-    }
-
-    XBMC->CloseFile(hFile);
-    }
-    else
-    {
-    XBMC->Log(LOG_ERROR, "can not open %s for write", request.GetUrl().c_str());
-    }
-
-    */
-
-    return ret_code;
-}
-
-int HttpPostClient::SendPostRequest(HttpWebRequest& request)
-{
-  int ret_code = -100;
-  std::string buffer;
-  std::string message;
-  char content_header[100];
-
-  buffer.append("POST /cs/ HTTP/1.0\r\n");
-  sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int) m_serverport);
-  buffer.append(content_header);
-  buffer.append("Content-Type: application/x-www-form-urlencoded\r\n");
-  if (m_username.compare("") != 0)
-  {
-    sprintf(content_header, "%s:%s", m_username.c_str(), m_password.c_str());
-   // sprintf(content_header, "Authorization: Basic %s\r\n",
-    //    base64_encode((const char*) content_header, strlen(content_header)).c_str());
-    buffer.append(content_header);
-  }
-  sprintf(content_header, "Content-Length: %ld\r\n", request.ContentLength);
-  buffer.append(content_header);
-  buffer.append("\r\n");
-  buffer.append(request.GetRequestData());
 
 #ifdef TARGET_WINDOWS
   {
@@ -413,7 +249,159 @@ int HttpPostClient::SendPostRequest(HttpWebRequest& request)
   return ret_code;
 }
 
+int HttpPostClient::SendApiPostRequest(HttpWebRequest & request)
+{
+    //int ret_code = -100;
+    //std::string buffer;
+    //std::string message;
+    //char content_header[100];
 
+    //buffer.append("POST /cs/ HTTP/1.0\r\n");
+    //sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int) m_serverport);
+    //buffer.append(content_header);
+    //buffer.append("Content-Type: application/x-www-form-urlencoded\r\n");
+    //if (m_username.compare("") != 0)
+    //{
+    //  sprintf(content_header, "%s:%s", m_username.c_str(), m_password.c_str());
+    // // sprintf(content_header, "Authorization: Basic %s\r\n",
+    //  //    base64_encode((const char*) content_header, strlen(content_header)).c_str());
+    //  buffer.append(content_header);
+    //}
+    //sprintf(content_header, "Content-Length: %ld\r\n", request.ContentLength);
+    //buffer.append(content_header);
+    //buffer.append("\r\n");
+    //buffer.append(request.GetRequestData());
+
+    int ret_code = -100;
+    std::string buffer;
+    std::string message;
+    char content_header[100];
+    std::string myrequest = "grant_type=password&client_id=2&client_secret=GU7nJwgwg5Y1Lee3OWnLsPrYUcxGarkpKZFGpmhl&username=test%40test.com&password=123456";
+    //std::string body = constructBody();
+
+    buffer.append("POST /oauth/token HTTP/1.0\r\n");
+    sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int)m_serverport);
+    buffer.append("Accept: */*\r\n");
+    buffer.append("Cache-Control: no-cache\r\n");
+    buffer.append(content_header);
+    sprintf(content_header, "Content-Type: application/x-www-form-urlencoded\r\n");
+    // boundary=%s\r\n", BOUNDARY
+    buffer.append(content_header);
+    sprintf(content_header, "Content-Length: %ld\r\n", myrequest.length());
+    buffer.append(content_header);
+    buffer.append("\r\n");
+    // buffer.append(request.GetRequestData());
+    buffer.append(myrequest);
+
+
+#ifdef TARGET_WINDOWS
+    {
+        WSADATA WsaData;
+        WSAStartup(0x0101, &WsaData);
+    }
+#endif
+
+    sockaddr_in sin;
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock == -1)
+    {
+        return -100;
+    }
+    sin.sin_family = AF_INET;
+    sin.sin_port = htons((unsigned short)m_serverport);
+
+    struct hostent * host_addr = gethostbyname(m_server.c_str());
+    if (host_addr == NULL)
+    {
+        return -103;
+    }
+    sin.sin_addr.s_addr = *((int*)*host_addr->h_addr_list);
+
+    if (connect(sock, (const struct sockaddr *) &sin, sizeof(sockaddr_in)) == -1)
+    {
+        return -101;
+    }
+
+    SEND_RQ(buffer.c_str());
+
+    const int read_buffer_size = 4096;
+    char read_buffer[read_buffer_size];
+    int read_size = 0;
+    std::string response;
+    while ((read_size = recv(sock, read_buffer, read_buffer_size, 0)) > 0)
+        response.append(read_buffer, read_buffer + read_size);
+
+    close(sock);
+
+    if (response.size() > 0)
+    {
+        //header
+        std::string::size_type n = response.find("\r\n");
+        if (n != std::string::npos)
+        {
+            std::string header = response.substr(0, n);
+            if (header.find("200 OK") != std::string::npos)
+                ret_code = 200;
+            if (header.find("401 Unauthorized") != std::string::npos)
+                ret_code = -401;
+
+            if (ret_code == 200)
+            {
+                //body
+                const char* body_sep = "\r\n\r\n";
+                n = response.find(body_sep);
+                if (n != std::string::npos)
+                {
+                    m_responseData.assign(response.c_str() + n + strlen(body_sep));
+                }
+                else
+                {
+                    ret_code = -105;
+                }
+            }
+        }
+        else
+        {
+            ret_code = -104;
+        }
+    }
+    else
+    {
+        ret_code = -102;
+    }
+
+    //TODO: Use xbmc file code when it allows to post content-type application/x-www-form-urlencoded and authentication
+    /*
+    void* hFile = XBMC->OpenFileForWrite(request.GetUrl().c_str(), 0);
+    if (hFile != NULL)
+    {
+
+    int rc = XBMC->WriteFile(hFile, buffer.c_str(), buffer.length());
+    if (rc >= 0)
+    {
+    std::string result;
+    result.clear();
+    char buffer[1024];
+    while (XBMC->ReadFileString(hFile, buffer, 1023))
+    result.append(buffer);
+
+    }
+    else
+    {
+    XBMC->Log(LOG_ERROR, "can not write to %s",request.GetUrl().c_str());
+    }
+
+    XBMC->CloseFile(hFile);
+    }
+    else
+    {
+    XBMC->Log(LOG_ERROR, "can not open %s for write", request.GetUrl().c_str());
+    }
+
+    */
+
+    return ret_code;
+}
 
 bool HttpPostClient::SendRequest(HttpWebRequest& request)
 {
@@ -421,9 +409,9 @@ bool HttpPostClient::SendRequest(HttpWebRequest& request)
   return (m_lastReqeuestErrorCode == 200);
 }
 
-bool HttpPostClient::SendApiRequest(HttpWebRequest & request)
+bool HttpPostClient::SendApiRequest(HttpWebRequest& request)
 {
-    m_lastReqeuestErrorCode = SendPostApiRequest(request);
+    m_lastReqeuestErrorCode = SendApiPostRequest(request);
     return (m_lastReqeuestErrorCode == 200);
 }
 

@@ -25,9 +25,28 @@
 #include "lifesatremoteconnection.h"
 #include "xml_object_serializer.h"
 #include "generic_response.h"
+#include "json.hpp"
+
+using json = nlohmann::json;
+
 
 using namespace lifesatremote;
 using namespace lifesatremoteserialization;
+
+struct mytoken {
+    std::string token_type;
+    int expires_in;
+    std::string access_token;
+    std::string refresh_token;
+};
+
+void from_json(const json& j, mytoken& p) {
+    p.token_type = j["token_type"].get<std::string>();
+    p.expires_in = j["expires_in"].get<int>();
+    p.access_token = j["access_token"].get<std::string>();
+    p.refresh_token = j["refresh_token"].get<std::string>();
+}
+
 
 LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, LifeSatRemoteLocker* locker)
     : m_httpClient(httpClient),
@@ -38,21 +57,27 @@ LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpCl
 {
   m_username = "";
   m_password = "";
-  m_client_id = "";
-  m_client_secret = "";
+
 }
 
-LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, const std::string& client_id, const std::string& client_secret, LifeSatRemoteLocker* locker)
+LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, const std::string& username, const std::string& password, LifeSatRemoteLocker* locker)
     : m_httpClient(httpClient),
     m_hostAddress(hostAddress),
     m_port(port),
     m_username(username),
     m_password(password),
-    m_client_id(client_id),
-    m_client_secret(client_secret),
     m_locker(locker)
 { 
   
+}
+
+lifesatremote::LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpClient & httpClient, const std::string & hostAddress, const long port, const std::string & access_token, LifeSatRemoteLocker * locker)
+    : m_httpClient(httpClient),
+    m_hostAddress(hostAddress),
+    m_port(port),
+    m_access_token(access_token),
+    m_locker(locker)
+{
 }
 
 
@@ -244,9 +269,9 @@ LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetServerInfo(const GetServe
     return GetData(LIFESAT_REMOTE_GET_SERVER_INFO_CMD, request, response, err_str);
 }
 
-LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetToken(const GetTokenRequest& request, Token& response, std::string * err_str)
+LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetToken(std::string * err_str)
 {
-    return GetData(LIFESAT_REMOTE_GET_TOKEN_CMD, request, response, err_str);
+    return GetMyToken(err_str);
 }
 
 std::string LifeSatRemoteCommunication::GetUrl()
@@ -273,30 +298,17 @@ std::string LifeSatRemoteCommunication::CreateRequestDataParameter(const std::st
   return data;
 }
 
-std::string lifesatremote::LifeSatRemoteCommunication::CreateRequestApiDataParameter(const std::string & command, const std::string & apiData)
-{
-    std::string encodedCommand = "";
-    std::string encodedApiData = "";
-
-    std::string data = LIFESAT_REMOTE_HTTP_COMMAND_QUERYSTRING + "=";
-    data.append(encodedCommand);
-    data.append("&=");
-    data.append(encodedApiData);
-
-    return data;
-}
-
 LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetData(const std::string& command, const Request& request, Response& responseObject, std::string* err_str)
 {
   LifeSatRemoteStatusCode status;
   std::string xmlData;
+  std::string test = m_access_token;
 
   if (m_locker != NULL)
       m_locker->lock();
 
   ClearErrorBuffer();
-  if (command != LIFESAT_REMOTE_GET_TOKEN_CMD) {
-      if ((status = SerializeRequestObject(command, request, xmlData)) != LIFESAT_REMOTE_STATUS_OK) {
+        if ((status = SerializeRequestObject(command, request, xmlData)) != LIFESAT_REMOTE_STATUS_OK) {
           WriteError("Serialization of request object failed with error code %d (%s).\n", status, GetStatusCodeDescription(status).c_str());
           return status;
       }
@@ -306,50 +318,9 @@ LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetData(const std::string& c
 
       lifesatremotehttp::HttpWebRequest* httpRequest = new lifesatremotehttp::HttpWebRequest(GetUrl());
       httpRequest->Method = LIFESAT_REMOTE_HTTP_METHOD;
-      httpRequest->ContentType = LIFESAT_REMOTE_HTTP_CONTENT_TYPE;
+      httpRequest->Accept = LIFESAT_REMOTE_HTTP_ACCEPT;
       httpRequest->ContentLength = requestData.length();
-      httpRequest->UserName = m_username;
-      httpRequest->Password = m_password;
-      httpRequest->SetRequestData(requestData);
-      if (!m_httpClient.SendRequest(*httpRequest)) {
-          status = LIFESAT_REMOTE_STATUS_CONNECTION_ERROR;
-          WriteError("HTTP request failed with error code %d (%s).\n", status, GetStatusCodeDescription(status).c_str());
-      }
-      else {
-          lifesatremotehttp::HttpWebResponse* httpResponse = m_httpClient.GetResponse();
-
-          if (httpResponse->GetStatusCode() == 401) {
-              status = LIFESAT_REMOTE_STATUS_UNAUTHORISED;
-              WriteError("HTTP response returned status code %d (%s).\n", httpResponse->GetStatusCode(), GetStatusCodeDescription(status).c_str());
-          }
-          else if (httpResponse->GetStatusCode() != 200) {
-              status = LIFESAT_REMOTE_STATUS_ERROR;
-              WriteError("HTTP response returned status code %d.\n", httpResponse->GetStatusCode());
-          }
-          else {
-              std::string responseData = httpResponse->GetResponseData();
-
-              if ((status = DeserializeResponseData(command, responseData, responseObject)) != LIFESAT_REMOTE_STATUS_OK) {
-                  WriteError("Deserialization of response data failed with error code %d (%s).\n", status, GetStatusCodeDescription(status).c_str());
-              }
-          }
-
-          delete httpResponse;
-      }
-
-      delete httpRequest;
-  }else{
-
-      
-      GetTokenRequest get_token_request;
-
-      get_token_request.SetUserName("tiborfodor@gmail.com");
-      get_token_request.SetPassword("pimpolino");
-      std::string requestData = get_token_request.GetGrandType() + get_token_request.GetPassword() + get_token_request.GetUserName();
-
-      lifesatremotehttp::HttpWebRequest* httpRequest = new lifesatremotehttp::HttpWebRequest(GetUrl());
-     
-      httpRequest->ContentLength = requestData.length();
+      httpRequest->Authorization = "Bearer " + m_access_token;
       httpRequest->SetRequestData(requestData);
       if (!m_httpClient.SendApiRequest(*httpRequest)) {
           status = LIFESAT_REMOTE_STATUS_CONNECTION_ERROR;
@@ -378,17 +349,73 @@ LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetData(const std::string& c
       }
 
       delete httpRequest;
+      if (err_str != NULL)
+          GetLastError(*err_str);
+
+      if (m_locker != NULL)
+          m_locker->unlock();
+
+      return status;
   }
 
 
+LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetMyToken(std::string* err_str)
+{
+    LifeSatRemoteStatusCode status = LIFESAT_REMOTE_STATUS_OK;
+    
+    if (m_locker != NULL)
+        m_locker->lock();
 
-  if (err_str != NULL)
-      GetLastError(*err_str);
+    ClearErrorBuffer();
+       
+    lifesatremotehttp::HttpWebRequest* httpRequest = new lifesatremotehttp::HttpWebRequest(GetUrl());
+       
+    if (!m_httpClient.SendRequest(*httpRequest)) {
+        status = LIFESAT_REMOTE_STATUS_CONNECTION_ERROR;
+        WriteError("HTTP request failed with error code %d (%s).\n", status, GetStatusCodeDescription(status).c_str());
+    }
+    else {
+        lifesatremotehttp::HttpWebResponse* httpResponse = m_httpClient.GetResponse();
 
-  if (m_locker != NULL)
+        if (httpResponse->GetStatusCode() == 401) {
+            status = LIFESAT_REMOTE_STATUS_UNAUTHORISED;
+            WriteError("HTTP response returned status code %d (%s).\n", httpResponse->GetStatusCode(), GetStatusCodeDescription(status).c_str());
+        }
+        else if (httpResponse->GetStatusCode() != 200) {
+            status = LIFESAT_REMOTE_STATUS_ERROR;
+            WriteError("HTTP response returned status code %d.\n", httpResponse->GetStatusCode());
+        }
+        else {
+            std::string responseData = httpResponse->GetResponseData();
+            json j3 = json::parse(responseData.c_str());
+            // range-based for
+            mytoken m3 = j3;
+            m_access_token = m3.access_token;
+            
+            // ns::from_json(j3, t2);
+            //ns::mytoken t3 = j3;
+            
+           
+                        
+
+            
+
+            //m_reader.parse(std::string(responseData), m_root);
+        }
+
+        delete httpResponse;
+    }
+
+    delete httpRequest;
+
+
+    if (err_str != NULL)
+    GetLastError(*err_str);
+
+    if (m_locker != NULL)
     m_locker->unlock();
 
-  return status;
+    return status;
 }
 
 LifeSatRemoteStatusCode LifeSatRemoteCommunication::SerializeRequestObject(const std::string& command, const Request& request, std::string& serializedXmlData)

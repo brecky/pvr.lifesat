@@ -35,9 +35,9 @@ RecordingStreamer::RecordingStreamer(ADDON::CHelper_libXBMC_addon* xbmc, const s
     xbmc_(xbmc), playback_handle_(NULL), client_id_(client_id), hostname_(hostname), username_(username), password_(
         password), port_(port), check_delta_(30)
 {
-  http_client_ = new HttpPostClient(xbmc_, hostname_, port_, username_, password_, "" );
+  http_client_ = new HttpPostClient(xbmc_, hostname_, port_, username_, password_ );
   lifesat_remote_con_ = LifeSatRemote::Connect((HttpClient&) *http_client_, hostname_.c_str(), port_, username_.c_str(),
-      password_.c_str(), "2" ,"", this);
+      password_.c_str(), this);
 }
 
 RecordingStreamer::~RecordingStreamer()

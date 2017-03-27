@@ -25,10 +25,9 @@
 
    Code modified to meet XBMC stand coding style by Palle Ehmsen (Palle@barcodemadness.com) 2012
 */
-
 #include "base64.h"
 #include <iostream>
-
+  
 static const std::string BASE64_CHARS = 
              "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
              "abcdefghijklmnopqrstuvwxyz"

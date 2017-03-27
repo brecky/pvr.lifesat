@@ -50,6 +50,10 @@ namespace lifesatremotehttp
     */
   const std::string LIFESAT_REMOTE_HTTP_HEADER_CONTENT_TYPE = "Content-Type";
 
+
+  const std::string LIFESAT_REMOTE_HTTP_HEADER_AUTHORIZATION = "Authorization";
+
+
   /**
     * Class for defining a HTTP web request.
     * This is used as input parameter for the HttpClient::SendRequest() method.
@@ -112,6 +116,10 @@ namespace lifesatremotehttp
       * The password to be used for basic authentication sent in request.
       */
     std::string Password;
+
+    std::string Accept;
+
+    std::string Authorization;
 
   private:
     std::string m_url;
@@ -181,6 +189,7 @@ namespace lifesatremotehttp
     virtual bool SendRequest(HttpWebRequest& request) = 0;
 
     virtual bool SendApiRequest(HttpWebRequest& request) = 0;
+
 
     /**
       * Get the HTTP response returned from a HTTP request.

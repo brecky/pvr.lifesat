@@ -37,16 +37,18 @@ public:
   void GetLastError(std::string& err);
   void UrlEncode(const std::string& str, std::string& outEncodedStr);
   HttpPostClient(ADDON::CHelper_libXBMC_addon *XBMC, const std::string& server, const int serverport,
-      const std::string& username, const std::string& password, const std::string& token);
-
+      const std::string& username, const std::string& password);
+  HttpPostClient(ADDON::CHelper_libXBMC_addon *XBMC, const std::string& server, const int serverport, const std::string& access_token);
+  
 private:
   int SendPostRequest(lifesatremotehttp::HttpWebRequest& request);
-  int SendPostApiRequest(lifesatremotehttp::HttpWebRequest& request);
+  int SendApiPostRequest(lifesatremotehttp::HttpWebRequest& request);
   std::string m_server;
   long m_serverport;
   std::string m_username;
   std::string m_password;
-  std::string m_token;
+  std::string m_access_token;
+
   ADDON::CHelper_libXBMC_addon *XBMC;
   std::string m_responseData;
   int m_lastReqeuestErrorCode;
