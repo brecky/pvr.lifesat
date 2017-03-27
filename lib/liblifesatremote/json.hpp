@@ -1435,8 +1435,6 @@ class basic_json
         result["compiler"] = {{"family", "clang"}, {"version", __clang_version__}};
 #elif defined(__ICC) || defined(__INTEL_COMPILER)
         result["compiler"] = {{"family", "icc"}, {"version", __INTEL_COMPILER}};
-#elif defined(__GNUC__) || defined(__GNUG__)
-        result["compiler"] = {{"family", "gcc"}, {"version", std::to_string(__GNUC__) + "." + std::to_string(__GNUC_MINOR__) + "." + std::to_string(__GNUC_PATCHLEVEL__)}};
 #elif defined(__HP_cc) || defined(__HP_aCC)
         result["compiler"] = "hp"
 #elif defined(__IBMCPP__)
@@ -1449,12 +1447,6 @@ class basic_json
         result["compiler"] = {{"family", "sunpro"}, {"version", __SUNPRO_CC}};
 #else
         result["compiler"] = {{"family", "unknown"}, {"version", "unknown"}};
-#endif
-
-#ifdef __cplusplus
-        result["compiler"]["c++"] = std::to_string(__cplusplus);
-#else
-        result["compiler"]["c++"] = "unknown";
 #endif
         return result;
     }
