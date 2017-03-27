@@ -42,8 +42,7 @@ SET(SOURCES channel.cpp
             request.h
             version.h
             response.h
-            response.cpp
-            json.hpp)
+            response.cpp)
 
 if(NOT WIN32)
   add_options(ALL_LANGUAGES ALL_BUILDS "-fPIC")

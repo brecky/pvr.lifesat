@@ -25,9 +25,6 @@
 #include "lifesatremoteconnection.h"
 #include "xml_object_serializer.h"
 #include "generic_response.h"
-#include "json.hpp"
-
-using json = nlohmann::json;
 
 
 using namespace lifesatremote;
@@ -387,10 +384,10 @@ LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetMyToken(std::string* err_
         }
         else {
             std::string responseData = httpResponse->GetResponseData();
-            json j3 = json::parse(responseData.c_str());
+            //json j3 = json::parse(responseData.c_str());
             // range-based for
-            mytoken m3 = j3;
-            m_access_token = m3.access_token;
+            //mytoken m3 = j3;
+            m_access_token = "NEM DOLGOZIK";
             
             // ns::from_json(j3, t2);
             //ns::mytoken t3 = j3;
