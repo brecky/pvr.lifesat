@@ -25,6 +25,7 @@
 #include "HttpPostClient.h"
 #include "base64.h"
 
+
 using namespace lifesatremotehttp;
 using namespace ADDON;
 
@@ -251,48 +252,24 @@ int HttpPostClient::SendPostRequest(HttpWebRequest& request)
 
 int HttpPostClient::SendApiPostRequest(HttpWebRequest & request)
 {
-    //int ret_code = -100;
-    //std::string buffer;
-    //std::string message;
-    //char content_header[100];
-
-    //buffer.append("POST /cs/ HTTP/1.0\r\n");
-    //sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int) m_serverport);
-    //buffer.append(content_header);
-    //buffer.append("Content-Type: application/x-www-form-urlencoded\r\n");
-    //if (m_username.compare("") != 0)
-    //{
-    //  sprintf(content_header, "%s:%s", m_username.c_str(), m_password.c_str());
-    // // sprintf(content_header, "Authorization: Basic %s\r\n",
-    //  //    base64_encode((const char*) content_header, strlen(content_header)).c_str());
-    //  buffer.append(content_header);
-    //}
-    //sprintf(content_header, "Content-Length: %ld\r\n", request.ContentLength);
-    //buffer.append(content_header);
-    //buffer.append("\r\n");
-    //buffer.append(request.GetRequestData());
-
     int ret_code = -100;
     std::string buffer;
     std::string message;
-    char content_header[100];
-    std::string myrequest = "grant_type=password&client_id=2&client_secret=GU7nJwgwg5Y1Lee3OWnLsPrYUcxGarkpKZFGpmhl&username=test%40test.com&password=123456";
-    //std::string body = constructBody();
+    char content_header[2048];
 
-    buffer.append("POST /oauth/token HTTP/1.0\r\n");
-    sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int)m_serverport);
-    buffer.append("Accept: */*\r\n");
-    buffer.append("Cache-Control: no-cache\r\n");
+    buffer.append("GET /cs HTTP/1.0\r\n");
+    sprintf(content_header, "Host: %s:%d\r\n", m_server.c_str(), (int) m_serverport);
     buffer.append(content_header);
-    sprintf(content_header, "Content-Type: application/x-www-form-urlencoded\r\n");
-    // boundary=%s\r\n", BOUNDARY
+    sprintf(content_header, "Accept: %s\r\n", request.Accept.c_str());
     buffer.append(content_header);
-    sprintf(content_header, "Content-Length: %ld\r\n", myrequest.length());
+    sprintf(content_header, "Authorization: %s\r\n", request.Authorization.c_str());
+    buffer.append(content_header);
+    sprintf(content_header, "Content-Length: %ld\r\n", request.ContentLength);
     buffer.append(content_header);
     buffer.append("\r\n");
-    // buffer.append(request.GetRequestData());
-    buffer.append(myrequest);
+    buffer.append(request.GetRequestData());
 
+ 
 
 #ifdef TARGET_WINDOWS
     {

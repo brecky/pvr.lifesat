@@ -24,19 +24,19 @@
 #pragma once
 
 #include <string>
-#include "dvblinkremote.h"
-#include "dvblinkremotehttp.h"
+#include "lifesatremote.h"
+#include "lifesatremotehttp.h"
 #include "curl/curl.h"
 
-namespace dvblinkremotehttp 
+namespace lifesatremotehttp 
 {
   typedef void (CurlHttpClientDebugCallbackFunc)(std::string type, std::string message); 
 
-  const std::string DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_TEXT = "TEXT";
-  const std::string DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_DATA = "SENT_REQUEST_DATA";
-  const std::string DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_HEADERS = "SENT_REQUEST_HEADERS";
-  const std::string DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_DATA = "RECIEVED_RESPONSE_DATA";
-  const std::string DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_HEADERS = "RECIEVED_RESPONSE_HEADERS";
+  const std::string LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_TEXT = "TEXT";
+  const std::string LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_DATA = "SENT_REQUEST_DATA";
+  const std::string LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_HEADERS = "SENT_REQUEST_HEADERS";
+  const std::string LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_DATA = "RECIEVED_RESPONSE_DATA";
+  const std::string LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_HEADERS = "RECIEVED_RESPONSE_HEADERS";
 
   class CurlHttpClient : public HttpClient
   {
@@ -53,7 +53,7 @@ namespace dvblinkremotehttp
 
   private:
     CURL* m_curlHandle;
-    char m_errorBuffer[dvblinkremote::DVBLINK_REMOTE_DEFAULT_BUFFER_SIZE];
+    char m_errorBuffer[lifesatremote::LIFESAT_REMOTE_DEFAULT_BUFFER_SIZE];
     std::string m_callbackData;
     bool m_curlCallbackPrepared;
     bool m_curlAuthenticationPrepared;

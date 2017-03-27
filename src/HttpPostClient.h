@@ -24,7 +24,6 @@
 
 #pragma once
 
-#include "liblifesatremote/lifesatremote.h"
 #include "liblifesatremote/lifesatremotehttp.h"
 #include "libXBMC_addon.h"
 

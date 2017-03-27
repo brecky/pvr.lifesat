@@ -1511,6 +1511,7 @@ long long LifeSatClient::PositionLiveStream(void)
     return m_live_streamer->Position();
   return 0;
 }
+
 long long LifeSatClient::LengthLiveStream(void)
 {
   if (m_live_streamer)

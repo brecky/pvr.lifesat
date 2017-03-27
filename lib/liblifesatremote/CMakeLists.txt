@@ -5,11 +5,15 @@ ENABLE_LANGUAGE(CXX)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET(SOURCES channel.cpp
+            lifesatremoteconnection.h
             lifesatremotecommunication.cpp
+            lifesatremote.h
             lifesatremote.cpp
+            lifesatremotehttp.h
             lifesatremotehttp.cpp
             epg.cpp
             favorites.cpp
+            generic_response.h
             generic_response.cpp
             item_metadata.cpp
             m3u_playlist.cpp
@@ -22,6 +26,7 @@ SET(SOURCES channel.cpp
             recording_settings.cpp
             remove_playback_object_request.cpp
             server_info.cpp
+            scheduling.h
             scheduling.cpp
             stop_stream_request.cpp
             stream.cpp
@@ -29,9 +34,15 @@ SET(SOURCES channel.cpp
             stream_request.cpp
             transcoded_video_stream_request.cpp
             transcoding_options.cpp
+            util.h
             util.cpp
+            xml_object_serializer.h
             xml_object_serializer_factory.cpp
-            token.cpp
+            lifesatremoteserialization.h
+            request.h
+            version.h
+            response.h
+            response.cpp
             json.hpp)
 
 if(NOT WIN32)

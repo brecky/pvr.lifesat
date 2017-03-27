@@ -24,7 +24,7 @@
 #include "curlhttpclient.h"
 #include <memory.h>
 
-using namespace dvblinkremotehttp;
+using namespace lifesatremotehttp;
 
 CurlHttpClient::CurlHttpClient()
   : m_curlHandle(NULL),
@@ -98,7 +98,7 @@ bool CurlHttpClient::SendRequest(HttpWebRequest& request)
   struct curl_slist* headers = NULL;
   PrepareCurlHeaders(request, headers);
 
-  if (request.Method == DVBLINK_REMOTE_HTTP_POST_METHOD) {
+  if (request.Method == LIFESAT_REMOTE_HTTP_POST_METHOD) {
     curl_easy_setopt(m_curlHandle, CURLOPT_POST, 1);
     curl_easy_setopt(m_curlHandle, CURLOPT_POSTFIELDS, request.GetRequestData().c_str());
     
@@ -152,7 +152,7 @@ HttpWebResponse* CurlHttpClient::GetResponse()
 
 void CurlHttpClient::GetLastError(std::string& err)
 {
-  m_errorBuffer[dvblinkremote::DVBLINK_REMOTE_DEFAULT_BUFFER_SIZE - 1] = dvblinkremote::DVBLINK_REMOTE_EOF;
+  m_errorBuffer[lifesatremote::LIFESAT_REMOTE_DEFAULT_BUFFER_SIZE - 1] = lifesatremote::LIFESAT_REMOTE_EOF;
   err.assign(m_errorBuffer);
 }
 
@@ -212,7 +212,7 @@ void CurlHttpClient::PrepareCurlHeaders(HttpWebRequest& request, curl_slist* hea
   }
 
   if (!request.ContentType.empty()) {
-    headers = curl_slist_append(headers, std::string(DVBLINK_REMOTE_HTTP_HEADER_CONTENT_TYPE + ":" + request.ContentType).c_str()); 
+    headers = curl_slist_append(headers, std::string(LIFESAT_REMOTE_HTTP_HEADER_CONTENT_TYPE + ":" + request.ContentType).c_str()); 
   }
 
   if (headers) {
@@ -240,7 +240,7 @@ void CurlHttpClient::PrepareCurlAuthentication(HttpWebRequest& request)
 void CurlHttpClient::ClearCurlCallbackBuffers()
 {
   m_callbackData = "";
-  memset(m_errorBuffer, 0, dvblinkremote::DVBLINK_REMOTE_EOF);
+  memset(m_errorBuffer, 0, lifesatremote::LIFESAT_REMOTE_EOF);
   m_requestSuccess = false;
 }
 
@@ -281,7 +281,7 @@ void CurlHttpClient::Debug(curl_infotype infotype, char* data, size_t size)
 {
   size_t newSize = size;
 
-  if (data[size - 1] == dvblinkremote::DVBLINK_REMOTE_NEWLINE) {
+  if (data[size - 1] == lifesatremote::LIFESAT_REMOTE_NEWLINE) {
     newSize = size - 1;
   }
 
@@ -291,19 +291,19 @@ void CurlHttpClient::Debug(curl_infotype infotype, char* data, size_t size)
   switch(infotype)
   {
   case CURLINFO_TEXT:
-    type = DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_TEXT;
+    type = LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_TEXT;
     break;
   case CURLINFO_DATA_OUT:
-    type = DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_DATA;
+    type = LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_DATA;
     break;
   case CURLINFO_DATA_IN:
-    type = DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_DATA;
+    type = LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_DATA;
     break;
   case CURLINFO_HEADER_OUT:
-    type = DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_HEADERS;
+    type = LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_SENT_REQUEST_HEADERS;
     break;
   case CURLINFO_HEADER_IN:
-    type = DVBLINK_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_HEADERS;
+    type = LIFESAT_REMOTE_HTTP_CURL_DEBUG_MESSAGE_TYPE_RECIEVED_RESPONSE_HEADERS;
     break;
   }
 

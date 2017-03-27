@@ -50,8 +50,8 @@ std::string g_strClientPath         = "";
 LifeSatClient* lifesatclient          = NULL;
 RecordingStreamer* recording_streamer = NULL;
 
-std::string g_szHostname            = DEFAULT_HOST;                  ///< The Host name or IP of the DVBLink Server
-long        g_lPort                 = DEFAULT_PORT;                  ///< The DVBLink Connect Server listening port (default: 8080)
+std::string g_szHostname            = DEFAULT_HOST;                  ///< The Host name or IP of the LifeSat Server
+long        g_lPort                 = DEFAULT_PORT;                  ///< The LifeSat Connect Server listening port (default: 8080)
 bool        g_bUseTranscoding		    = DEFAULT_USETRANSCODING;        ///< Use transcoding
 std::string g_szClientname;                                          ///< Name of lifesat client
 std::string g_szUsername            = DEFAULT_USERNAME;              ///< Username
@@ -129,11 +129,11 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
     return ADDON_STATUS_PERMANENT_FAILURE;
   }
 
-  XBMC->Log(LOG_DEBUG, "%s - Creating the PVR DVBlink add-on", __FUNCTION__);
+  XBMC->Log(LOG_DEBUG, "%s - Creating the PVR LifeSat Stream add-on", __FUNCTION__);
 
   //generate a guid to use as a client identification
   generate_uuid(g_szClientname);
-  XBMC->Log(LOG_NOTICE, "Generated guid %s to use as a DVBLink client ID", g_szClientname.c_str());
+  XBMC->Log(LOG_NOTICE, "Generated guid %s to use as a LifeSat client ID", g_szClientname.c_str());
 
   m_CurStatus = ADDON_STATUS_UNKNOWN;
   g_strUserPath = pvrprops->strUserPath;
@@ -192,7 +192,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   if (!XBMC->GetSetting("port", &g_lPort))
   {
     /* If setting is unknown fallback to defaults */
-    XBMC->Log(LOG_ERROR, "Couldn't get 'port' setting, falling back to '8080' as default");
+    XBMC->Log(LOG_ERROR, "Couldn't get 'port' setting, falling back to '80' as default");
     g_lPort = DEFAULT_PORT;
   }
 
@@ -483,7 +483,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES* pCapabilities)
 
 const char *GetBackendName(void)
 {
-  static const char *strBackendName = "DVBLink Server";
+  static const char *strBackendName = "LifeSat Stream Server";
   return strBackendName;
 }
 
