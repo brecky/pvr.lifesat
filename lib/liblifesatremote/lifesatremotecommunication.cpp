@@ -30,19 +30,19 @@
 using namespace lifesatremote;
 using namespace lifesatremoteserialization;
 
-struct mytoken {
-    std::string token_type;
-    int expires_in;
-    std::string access_token;
-    std::string refresh_token;
-};
-
-void from_json(const json& j, mytoken& p) {
-    p.token_type = j["token_type"].get<std::string>();
-    p.expires_in = j["expires_in"].get<int>();
-    p.access_token = j["access_token"].get<std::string>();
-    p.refresh_token = j["refresh_token"].get<std::string>();
-}
+//struct mytoken {
+//    std::string token_type;
+//    int expires_in;
+//    std::string access_token;
+//    std::string refresh_token;
+//};
+//
+//void from_json(const json& j, mytoken& p) {
+//    p.token_type = j["token_type"].get<std::string>();
+//    p.expires_in = j["expires_in"].get<int>();
+//    p.access_token = j["access_token"].get<std::string>();
+//    p.refresh_token = j["refresh_token"].get<std::string>();
+//}
 
 
 LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, LifeSatRemoteLocker* locker)
