@@ -50,11 +50,7 @@ SOFTWARE.
 #include <memory> // addressof, allocator, allocator_traits, unique_ptr
 #include <numeric> // accumulate
 #include <sstream> // stringstream
-#if defined(__ANDROID__)
-    #include <unistd.h> // android test
-#else
-    #include <string> // getline, stoi, string, to_string
-#endif
+#include <string> // getline, stoi, string, to_string
 #include <type_traits> // add_pointer, conditional, decay, enable_if, false_type, integral_constant, is_arithmetic, is_base_of, is_const, is_constructible, is_convertible, is_default_constructible, is_enum, is_floating_point, is_integral, is_nothrow_move_assignable, is_nothrow_move_constructible, is_pointer, is_reference, is_same, is_scalar, is_signed, remove_const, remove_cv, remove_pointer, remove_reference, true_type, underlying_type
 #include <utility> // declval, forward, make_pair, move, pair, swap
 #include <vector> // vector
@@ -92,6 +88,16 @@ SOFTWARE.
     #define JSON_TRY if(true)
     #define JSON_CATCH(exception) if(false)
 #endif
+
+#include <sstream>
+
+template <typename T>
+std::string NumberToString(T Number)
+{
+    std::ostringstream ss;
+    ss << Number;
+    return ss.str();
+}
 
 /*!
 @brief namespace for Niels Lohmann
@@ -146,7 +152,7 @@ class exception : public std::exception
 
     static std::string name(const std::string& ename, int id)
     {
-        return "[json.exception." + ename + "." + std::to_string(id) + "] ";
+        return "[json.exception." + ename + "." + NumberToString(id) + "] ";
     }
 
   private:
@@ -203,7 +209,7 @@ class parse_error : public exception
     static parse_error create(int id, size_t byte_, const std::string& what_arg)
     {
         std::string w = exception::name("parse_error", id) + "parse error" +
-                        (byte_ != 0 ? (" at " + std::to_string(byte_)) : "") +
+                        (byte_ != 0 ? (" at " + NumberToString(byte_)) : "") +
                         ": " + what_arg;
         return parse_error(id, byte_, w.c_str());
     }
@@ -3786,7 +3792,7 @@ class basic_json
             JSON_CATCH (std::out_of_range&)
             {
                 // create better exception explanation
-                JSON_THROW(out_of_range::create(401, "array index " + std::to_string(idx) + " is out of range"));
+                JSON_THROW(out_of_range::create(401, "array index " + NumberToString(idx) + " is out of range"));
             }
         }
         else
@@ -3833,7 +3839,7 @@ class basic_json
             JSON_CATCH (std::out_of_range&)
             {
                 // create better exception explanation
-                JSON_THROW(out_of_range::create(401, "array index " + std::to_string(idx) + " is out of range"));
+                JSON_THROW(out_of_range::create(401, "array index " + NumberToString(idx) + " is out of range"));
             }
         }
         else
@@ -4795,7 +4801,7 @@ class basic_json
         {
             if (idx >= size())
             {
-                JSON_THROW(out_of_range::create(401, "array index " + std::to_string(idx) + " is out of range"));
+                JSON_THROW(out_of_range::create(401, "array index " + NumberToString(idx) + " is out of range"));
             }
 
             m_value.array->erase(m_value.array->begin() + static_cast<difference_type>(idx));
@@ -8047,19 +8053,19 @@ class basic_json
         // simple case: requested length is greater than the vector's length
         if (len > size or offset > size)
         {
-            JSON_THROW(parse_error::create(110, offset + 1, "cannot read " + std::to_string(len) + " bytes from vector"));
+            JSON_THROW(parse_error::create(110, offset + 1, "cannot read " + NumberToString(len) + " bytes from vector"));
         }
 
         // second case: adding offset would result in overflow
         if ((size > ((std::numeric_limits<size_t>::max)() - offset)))
         {
-            JSON_THROW(parse_error::create(110, offset + 1, "cannot read " + std::to_string(len) + " bytes from vector"));
+            JSON_THROW(parse_error::create(110, offset + 1, "cannot read " + NumberToString(len) + " bytes from vector"));
         }
 
         // last case: reading past the end of the vector
         if (len + offset > size)
         {
-            JSON_THROW(parse_error::create(110, offset + 1, "cannot read " + std::to_string(len) + " bytes from vector"));
+            JSON_THROW(parse_error::create(110, offset + 1, "cannot read " + NumberToString(len) + " bytes from vector"));
         }
     }
 
@@ -9476,7 +9482,7 @@ class basic_json
                     // use integer array index as key
                     case value_t::array:
                     {
-                        return std::to_string(array_index);
+                        return NumberToString(array_index);
                     }
 
                     // use key from the object
@@ -12676,7 +12682,7 @@ basic_json_parser_74:
                         {
                             // "-" always fails the range check
                             JSON_THROW(out_of_range::create(402, "array index '-' (" +
-                                                            std::to_string(ptr->m_value.array->size()) +
+                                                            NumberToString(ptr->m_value.array->size()) +
                                                             ") is out of range"));
                         }
 
@@ -12740,7 +12746,7 @@ basic_json_parser_74:
                         {
                             // "-" cannot be used for const access
                             JSON_THROW(out_of_range::create(402, "array index '-' (" +
-                                                            std::to_string(ptr->m_value.array->size()) +
+                                                            NumberToString(ptr->m_value.array->size()) +
                                                             ") is out of range"));
                         }
 
@@ -12797,7 +12803,7 @@ basic_json_parser_74:
                         {
                             // "-" always fails the range check
                             JSON_THROW(out_of_range::create(402, "array index '-' (" +
-                                                            std::to_string(ptr->m_value.array->size()) +
+                                                            NumberToString(ptr->m_value.array->size()) +
                                                             ") is out of range"));
                         }
 
@@ -12968,7 +12974,7 @@ basic_json_parser_74:
                         // iterate array and use index as reference string
                         for (size_t i = 0; i < value.m_value.array->size(); ++i)
                         {
-                            flatten(reference_string + "/" + std::to_string(i),
+                            flatten(reference_string + "/" + NumberToString(i),
                                     value.m_value.array->operator[](i), result);
                         }
                     }
@@ -13412,7 +13418,7 @@ basic_json_parser_74:
                             if (static_cast<size_type>(idx) > parent.size())
                             {
                                 // avoid undefined behavior
-                                JSON_THROW(out_of_range::create(401, "array index " + std::to_string(idx) + " is out of range"));
+                                JSON_THROW(out_of_range::create(401, "array index " + NumberToString(idx) + " is out of range"));
                             }
                             else
                             {
@@ -13656,7 +13662,7 @@ basic_json_parser_74:
                     while (i < source.size() and i < target.size())
                     {
                         // recursive call to compare array values at index i
-                        auto temp_diff = diff(source[i], target[i], path + "/" + std::to_string(i));
+                        auto temp_diff = diff(source[i], target[i], path + "/" + NumberToString(i));
                         result.insert(result.end(), temp_diff.begin(), temp_diff.end());
                         ++i;
                     }
@@ -13673,7 +13679,7 @@ basic_json_parser_74:
                         result.insert(result.begin() + end_index, object(
                         {
                             {"op", "remove"},
-                            {"path", path + "/" + std::to_string(i)}
+                            {"path", path + "/" + NumberToString(i)}
                         }));
                         ++i;
                     }
@@ -13684,7 +13690,7 @@ basic_json_parser_74:
                         result.push_back(
                         {
                             {"op", "add"},
-                            {"path", path + "/" + std::to_string(i)},
+                            {"path", path + "/" + NumberToString(i)},
                             {"value", target[i]}
                         });
                         ++i;
