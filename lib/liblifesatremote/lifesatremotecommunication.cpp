@@ -432,19 +432,19 @@ LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetMyToken(std::string* err_
         else {
             std::string responseData = httpResponse->GetResponseData();
             
-            JSONExample source;
-            source.text = "Hello JSON World";
+           // JSONExample source;
+           // source.text = "Hello JSON World";
             // create JSON from a producer
-            std::string json = JSON::producer<JSONExample>::convert(source);
+           // std::string json = JSON::producer<JSONExample>::convert(source);
             // and then create a new instance from a consumer ...
-            JSONExample sink = JSON::consumer<JSONExample>::convert(json);
+           // JSONExample sink = JSON::consumer<JSONExample>::convert(json);
             
-            JSONToken mytoken = JSON::consumer<JSONToken>::convert("{\"JSONToken\":" + responseData + "}");
+            //JSONToken mytoken = JSON::consumer<JSONToken>::convert("{\"JSONToken\":" + responseData + "}");
             // we are done ...
             //json j3 = json::parse(responseData.c_str());
             // range-based for
             //mytoken m3 = j3;
-            m_access_token = mytoken.access_token;
+            //m_access_token = mytoken.access_token;
             
             // ns::from_json(j3, t2);
             //ns::mytoken t3 = j3;
