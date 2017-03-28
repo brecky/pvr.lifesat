@@ -51,7 +51,11 @@ SET(SOURCES channel.cpp
 			pt.h
 			stringer.h
 			convert.h
-			json_ex.h)
+			json_ex.h
+			arm_convert.h
+			arm_json_ex.h
+			osx_convert.h
+			osx_json_ex.h)
 
 if(NOT WIN32)
   add_options(ALL_LANGUAGES ALL_BUILDS "-fPIC")

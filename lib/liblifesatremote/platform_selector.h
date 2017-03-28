@@ -45,8 +45,8 @@
 
 #if defined(_MSC_VER)
 
-#include "windows\convert.h"
-#include "windows\json_ex.h"
+#include "convert.h"
+#include "json_ex.h"
 
 //
 typedef int64_t int_size;
@@ -95,8 +95,8 @@ typedef int64_t int_size;
 // g++
 #elif defined(__GNUG__)
 
-#include "osx/convert.h"
-#include "osx/json_ex.h"
+#include "osx_convert.h"
+#include "osx_json_ex.h"
 
 // apologies for the macros once more ...?
 #define _IS_NAN(arg) std::isnan(arg)
@@ -107,8 +107,8 @@ typedef int64_t int_size;
 
 #elif defined(__arm__)
 
-#include "arm/json_ex.h"
-#include "arm/convert.h"
+#include "arm_json_ex.h"
+#include "arm_convert.h"
 
 // apologies for the macros once more ...?
 #define _IS_NAN(arg) isnan(arg)
