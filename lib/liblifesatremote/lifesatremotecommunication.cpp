@@ -25,9 +25,9 @@
 #include "lifesatremoteconnection.h"
 #include "xml_object_serializer.h"
 #include "generic_response.h"
-#include "json_adapter.h"
-#include "json_reader.h"
-#include "json_writer.h"
+//#include "json_adapter.h"
+//#include "json_reader.h"
+//#include "json_writer.h"
 
 
 using namespace lifesatremote;
@@ -48,49 +48,49 @@ using namespace lifesatremoteserialization;
 //}
 
 
-class JSONToken
-{
-public:
-    // to be JSON'ised
-    std::string token_type;
-    int expires_in;
-    std::string access_token;
-    std::string refresh_token;
-public:
-    // each class requires a public serialize function
-    void serialize(JSON::Adapter& adapter)
-    {
-        // this pattern is required 
-        JSON::Class root(adapter, "JSONToken");
-        // this is the last member variable we serialize so use the _T variant
-        JSON_E(adapter, token_type);
-        JSON_E(adapter, expires_in);
-        JSON_E(adapter, access_token);
-        JSON_T(adapter, refresh_token);
-    }
-};
+//class JSONToken
+//{
+//public:
+//    // to be JSON'ised
+//    std::string token_type;
+//    int expires_in;
+//    std::string access_token;
+//    std::string refresh_token;
+//public:
+//    // each class requires a public serialize function
+//    void serialize(JSON::Adapter& adapter)
+//    {
+//        // this pattern is required 
+//        JSON::Class root(adapter, "JSONToken");
+//        // this is the last member variable we serialize so use the _T variant
+//        JSON_E(adapter, token_type);
+//        JSON_E(adapter, expires_in);
+//        JSON_E(adapter, access_token);
+//        JSON_T(adapter, refresh_token);
+//    }
+//};
 
-class JSONExample
-{
-public:
-    // content gets streamed to JSON
-    std::string text;
-public:
-    void serialize(JSON::Adapter& adapter)
-    {
-        // this pattern is required 
-        JSON::Class root(adapter, "JSONExample");
-        // this is the last member variable we serialize so use the _T variant
-        JSON_T(adapter, text);
-    }
-
-    bool operator==(const JSONExample& arg) const
-    {
-        return (text == arg.text);
-    }
-    // 
-    JSONExample(const char* arg = 0) : text(arg ? arg : "") {}
-};
+//class JSONExample
+//{
+//public:
+//    // content gets streamed to JSON
+//    std::string text;
+//public:
+//    void serialize(JSON::Adapter& adapter)
+//    {
+//        // this pattern is required 
+//        JSON::Class root(adapter, "JSONExample");
+//        // this is the last member variable we serialize so use the _T variant
+//        JSON_T(adapter, text);
+//    }
+//
+//    bool operator==(const JSONExample& arg) const
+//    {
+//        return (text == arg.text);
+//    }
+//    // 
+//    JSONExample(const char* arg = 0) : text(arg ? arg : "") {}
+//};
 
 LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, LifeSatRemoteLocker* locker)
     : m_httpClient(httpClient),
@@ -432,20 +432,20 @@ LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetMyToken(std::string* err_
         else {
             std::string responseData = httpResponse->GetResponseData();
             
-           // JSONExample source;
+            //JSONExample source;
            // source.text = "Hello JSON World";
             // create JSON from a producer
-           // std::string json = JSON::producer<JSONExample>::convert(source);
+            //std::string json = JSON::producer<JSONExample>::convert(source);
             // and then create a new instance from a consumer ...
            // JSONExample sink = JSON::consumer<JSONExample>::convert(json);
             
-            //JSONToken mytoken = JSON::consumer<JSONToken>::convert("{\"JSONToken\":" + responseData + "}");
+           // JSONToken mytoken = JSON::consumer<JSONToken>::convert("{\"JSONToken\":" + responseData + "}");
             // we are done ...
             //json j3 = json::parse(responseData.c_str());
             // range-based for
             //mytoken m3 = j3;
             //m_access_token = mytoken.access_token;
-            
+            m_access_token = "";
             // ns::from_json(j3, t2);
             //ns::mytoken t3 = j3;
             
