@@ -25,6 +25,9 @@
 #include "lifesatremoteconnection.h"
 #include "xml_object_serializer.h"
 #include "generic_response.h"
+#include "json_adapter.h"
+#include "json_reader.h"
+#include "json_writer.h"
 
 
 using namespace lifesatremote;
@@ -44,6 +47,22 @@ using namespace lifesatremoteserialization;
 //    p.refresh_token = j["refresh_token"].get<std::string>();
 //}
 
+
+class JSONExample
+{
+public:
+    // to be JSON'ised
+    std::string text;
+public:
+    // each class requires a public serialize function
+    void serialize(JSON::Adapter& adapter)
+    {
+        // this pattern is required 
+        JSON::Class root(adapter, "JSONExample");
+        // this is the last member variable we serialize so use the _T variant
+        JSON_T(adapter, text);
+    }
+};
 
 LifeSatRemoteCommunication::LifeSatRemoteCommunication(lifesatremotehttp::HttpClient& httpClient, const std::string& hostAddress, const long port, LifeSatRemoteLocker* locker)
     : m_httpClient(httpClient),
@@ -384,6 +403,14 @@ LifeSatRemoteStatusCode LifeSatRemoteCommunication::GetMyToken(std::string* err_
         }
         else {
             std::string responseData = httpResponse->GetResponseData();
+            
+            JSONExample source;
+            source.text = "Hello JSON World";
+            // create JSON from a producer
+            std::string json = JSON::producer<JSONExample>::convert(source);
+            // and then create a new instance from a consumer ...
+            JSONExample sink = JSON::consumer<JSONExample>::convert(json);
+            // we are done ...
             //json j3 = json::parse(responseData.c_str());
             // range-based for
             //mytoken m3 = j3;
