@@ -21,7 +21,7 @@
 
 #include "client.h"
 #include "xbmc_pvr_dll.h"
-#include "PVRDemoData.h"
+#include "PVRLifeSatData.h"
 #include <p8-platform/util/util.h>
 
 using namespace std;
@@ -33,9 +33,9 @@ using namespace ADDON;
 
 bool           m_bCreated       = false;
 ADDON_STATUS   m_CurStatus      = ADDON_STATUS_UNKNOWN;
-PVRDemoData   *m_data           = NULL;
+PVRLifeSatData   *m_data           = NULL;
 bool           m_bIsPlaying     = false;
-PVRDemoChannel m_currentChannel;
+PVRLifeSatChannel m_currentChannel;
 
 /* User adjustable settings are saved here.
  * Default values are defined inside client.h
@@ -84,7 +84,7 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
 
   ADDON_ReadSettings();
 
-  m_data = new PVRDemoData;
+  m_data = new PVRLifeSatData;
   m_CurStatus = ADDON_STATUS_OK;
   m_bCreated = true;
   return m_CurStatus;

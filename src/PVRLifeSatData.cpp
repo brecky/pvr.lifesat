@@ -20,12 +20,12 @@
  */
 
 #include "util/XMLUtils.h"
-#include "PVRDemoData.h"
+#include "PVRLifeSatData.h"
 
 using namespace std;
 using namespace ADDON;
 
-PVRDemoData::PVRDemoData(void)
+PVRLifeSatData::PVRLifeSatData(void)
 {
   m_iEpgStart = -1;
   m_strDefaultIcon =  "http://www.royalty-free.tv/news/wp-content/uploads/2011/06/cc-logo1.jpg";
@@ -34,24 +34,24 @@ PVRDemoData::PVRDemoData(void)
   LoadDemoData();
 }
 
-PVRDemoData::~PVRDemoData(void)
+PVRLifeSatData::~PVRLifeSatData(void)
 {
   m_channels.clear();
   m_groups.clear();
 }
 
-std::string PVRDemoData::GetSettingsFile() const
+std::string PVRLifeSatData::GetSettingsFile() const
 {
   string settingFile = g_strClientPath;
   if (settingFile.at(settingFile.size() - 1) == '\\' ||
       settingFile.at(settingFile.size() - 1) == '/')
-    settingFile.append("PVRDemoAddonSettings.xml");
+    settingFile.append("PVRLifeSatAddonSettings.xml");
   else
-    settingFile.append("/PVRDemoAddonSettings.xml");
+    settingFile.append("/PVRLifeSatAddonSettings.xml");
   return settingFile;
 }
 
-bool PVRDemoData::LoadDemoData(void)
+bool PVRLifeSatData::LoadDemoData(void)
 {
   TiXmlDocument xmlDoc;
   string strSettingsFile = GetSettingsFile();
@@ -78,7 +78,7 @@ bool PVRDemoData::LoadDemoData(void)
     while ((pChannelNode = pElement->IterateChildren(pChannelNode)) != NULL)
     {
       CStdString strTmp;
-      PVRDemoChannel channel;
+      PVRLifeSatChannel channel;
       channel.iUniqueId = ++iUniqueChannelId;
 
       /* channel name */
@@ -126,7 +126,7 @@ bool PVRDemoData::LoadDemoData(void)
     while ((pGroupNode = pElement->IterateChildren(pGroupNode)) != NULL)
     {
       CStdString strTmp;
-      PVRDemoChannelGroup group;
+      PVRLifeSatChannelGroup group;
       group.iGroupId = ++iUniqueGroupId;
 
       /* group name */
@@ -163,7 +163,7 @@ bool PVRDemoData::LoadDemoData(void)
     {
       CStdString strTmp;
       int iTmp;
-      PVRDemoEpgEntry entry;
+      PVRLifeSatEpgEntry entry;
 
       /* broadcast id */
       if (!XMLUtils::GetInt(pEpgNode, "broadcastid", entry.iBroadcastId))
@@ -172,7 +172,7 @@ bool PVRDemoData::LoadDemoData(void)
       /* channel id */
       if (!XMLUtils::GetInt(pEpgNode, "channelid", iTmp))
         continue;
-      PVRDemoChannel &channel = m_channels.at(iTmp - 1);
+      PVRLifeSatChannel &channel = m_channels.at(iTmp - 1);
       entry.iChannelId = channel.iUniqueId;
 
       /* title */
@@ -222,7 +222,7 @@ bool PVRDemoData::LoadDemoData(void)
     while ((pRecordingNode = pElement->IterateChildren(pRecordingNode)) != NULL)
     {
       CStdString strTmp;
-      PVRDemoRecording recording;
+      PVRLifeSatRecording recording;
 
       /* radio/TV */
       XMLUtils::GetBoolean(pRecordingNode, "radio", recording.bRadio);
@@ -296,7 +296,7 @@ bool PVRDemoData::LoadDemoData(void)
     while ((pRecordingNode = pElement->IterateChildren(pRecordingNode)) != NULL)
     {
       CStdString strTmp;
-      PVRDemoRecording recording;
+      PVRLifeSatRecording recording;
 
       /* radio/TV */
       XMLUtils::GetBoolean(pRecordingNode, "radio", recording.bRadio);
@@ -371,14 +371,14 @@ bool PVRDemoData::LoadDemoData(void)
     {
       CStdString strTmp;
       int iTmp;
-      PVRDemoTimer timer;
+      PVRLifeSatTimer timer;
       time_t timeNow = time(NULL);
       struct tm* now = localtime(&timeNow);
 
       /* channel id */
       if (!XMLUtils::GetInt(pTimerNode, "channelid", iTmp))
         continue;
-      PVRDemoChannel &channel = m_channels.at(iTmp - 1);
+      PVRLifeSatChannel &channel = m_channels.at(iTmp - 1);
       timer.iChannelId = channel.iUniqueId;
 
       /* state */
@@ -429,16 +429,16 @@ bool PVRDemoData::LoadDemoData(void)
   return true;
 }
 
-int PVRDemoData::GetChannelsAmount(void)
+int PVRLifeSatData::GetChannelsAmount(void)
 {
   return m_channels.size();
 }
 
-PVR_ERROR PVRDemoData::GetChannels(ADDON_HANDLE handle, bool bRadio)
+PVR_ERROR PVRLifeSatData::GetChannels(ADDON_HANDLE handle, bool bRadio)
 {
   for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
   {
-    PVRDemoChannel &channel = m_channels.at(iChannelPtr);
+    PVRLifeSatChannel &channel = m_channels.at(iChannelPtr);
     if (channel.bRadio == bRadio)
     {
       PVR_CHANNEL xbmcChannel;
@@ -461,11 +461,11 @@ PVR_ERROR PVRDemoData::GetChannels(ADDON_HANDLE handle, bool bRadio)
   return PVR_ERROR_NO_ERROR;
 }
 
-bool PVRDemoData::GetChannel(const PVR_CHANNEL &channel, PVRDemoChannel &myChannel)
+bool PVRLifeSatData::GetChannel(const PVR_CHANNEL &channel, PVRLifeSatChannel &myChannel)
 {
   for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
   {
-    PVRDemoChannel &thisChannel = m_channels.at(iChannelPtr);
+    PVRLifeSatChannel &thisChannel = m_channels.at(iChannelPtr);
     if (thisChannel.iUniqueId == (int) channel.iUniqueId)
     {
       myChannel.iUniqueId         = thisChannel.iUniqueId;
@@ -484,16 +484,16 @@ bool PVRDemoData::GetChannel(const PVR_CHANNEL &channel, PVRDemoChannel &myChann
   return false;
 }
 
-int PVRDemoData::GetChannelGroupsAmount(void)
+int PVRLifeSatData::GetChannelGroupsAmount(void)
 {
   return m_groups.size();
 }
 
-PVR_ERROR PVRDemoData::GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
+PVR_ERROR PVRLifeSatData::GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
 {
   for (unsigned int iGroupPtr = 0; iGroupPtr < m_groups.size(); iGroupPtr++)
   {
-    PVRDemoChannelGroup &group = m_groups.at(iGroupPtr);
+    PVRLifeSatChannelGroup &group = m_groups.at(iGroupPtr);
     if (group.bRadio == bRadio)
     {
       PVR_CHANNEL_GROUP xbmcGroup;
@@ -510,11 +510,11 @@ PVR_ERROR PVRDemoData::GetChannelGroups(ADDON_HANDLE handle, bool bRadio)
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR PVRDemoData::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
+PVR_ERROR PVRLifeSatData::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHANNEL_GROUP &group)
 {
   for (unsigned int iGroupPtr = 0; iGroupPtr < m_groups.size(); iGroupPtr++)
   {
-    PVRDemoChannelGroup &myGroup = m_groups.at(iGroupPtr);
+    PVRLifeSatChannelGroup &myGroup = m_groups.at(iGroupPtr);
     if (!strcmp(myGroup.strGroupName.c_str(),group.strGroupName))
     {
       for (unsigned int iChannelPtr = 0; iChannelPtr < myGroup.members.size(); iChannelPtr++)
@@ -522,7 +522,7 @@ PVR_ERROR PVRDemoData::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHA
         int iId = myGroup.members.at(iChannelPtr) - 1;
         if (iId < 0 || iId > (int)m_channels.size() - 1)
           continue;
-        PVRDemoChannel &channel = m_channels.at(iId);
+        PVRLifeSatChannel &channel = m_channels.at(iId);
         PVR_CHANNEL_GROUP_MEMBER xbmcGroupMember;
         memset(&xbmcGroupMember, 0, sizeof(PVR_CHANNEL_GROUP_MEMBER));
 
@@ -538,7 +538,7 @@ PVR_ERROR PVRDemoData::GetChannelGroupMembers(ADDON_HANDLE handle, const PVR_CHA
   return PVR_ERROR_NO_ERROR;
 }
 
-PVR_ERROR PVRDemoData::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
+PVR_ERROR PVRLifeSatData::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &channel, time_t iStart, time_t iEnd)
 {
   if (m_iEpgStart == -1)
     m_iEpgStart = iStart;
@@ -548,7 +548,7 @@ PVR_ERROR PVRDemoData::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &
 
   for (unsigned int iChannelPtr = 0; iChannelPtr < m_channels.size(); iChannelPtr++)
   {
-    PVRDemoChannel &myChannel = m_channels.at(iChannelPtr);
+    PVRLifeSatChannel &myChannel = m_channels.at(iChannelPtr);
     if (myChannel.iUniqueId != (int) channel.iUniqueId)
       continue;
 
@@ -557,7 +557,7 @@ PVR_ERROR PVRDemoData::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &
       time_t iLastEndTimeTmp = 0;
       for (unsigned int iEntryPtr = 0; iEntryPtr < myChannel.epg.size(); iEntryPtr++)
       {
-        PVRDemoEpgEntry &myTag = myChannel.epg.at(iEntryPtr);
+        PVRLifeSatEpgEntry &myTag = myChannel.epg.at(iEntryPtr);
 
         EPG_TAG tag;
         memset(&tag, 0, sizeof(EPG_TAG));
@@ -587,18 +587,18 @@ PVR_ERROR PVRDemoData::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL &
   return PVR_ERROR_NO_ERROR;
 }
 
-int PVRDemoData::GetRecordingsAmount(bool bDeleted)
+int PVRLifeSatData::GetRecordingsAmount(bool bDeleted)
 {
   return bDeleted ? m_recordingsDeleted.size() : m_recordings.size();
 }
 
-PVR_ERROR PVRDemoData::GetRecordings(ADDON_HANDLE handle, bool bDeleted)
+PVR_ERROR PVRLifeSatData::GetRecordings(ADDON_HANDLE handle, bool bDeleted)
 {
-  std::vector<PVRDemoRecording> *recordings = bDeleted ? &m_recordingsDeleted : &m_recordings;
+  std::vector<PVRLifeSatRecording> *recordings = bDeleted ? &m_recordingsDeleted : &m_recordings;
 
-  for (std::vector<PVRDemoRecording>::iterator it = recordings->begin() ; it != recordings->end() ; it++)
+  for (std::vector<PVRLifeSatRecording>::iterator it = recordings->begin() ; it != recordings->end() ; it++)
   {
-    PVRDemoRecording &recording = *it;
+    PVRLifeSatRecording &recording = *it;
 
     PVR_RECORDING xbmcRecording;
 
@@ -626,17 +626,17 @@ PVR_ERROR PVRDemoData::GetRecordings(ADDON_HANDLE handle, bool bDeleted)
   return PVR_ERROR_NO_ERROR;
 }
 
-int PVRDemoData::GetTimersAmount(void)
+int PVRLifeSatData::GetTimersAmount(void)
 {
   return m_timers.size();
 }
 
-PVR_ERROR PVRDemoData::GetTimers(ADDON_HANDLE handle)
+PVR_ERROR PVRLifeSatData::GetTimers(ADDON_HANDLE handle)
 {
   unsigned int i = PVR_TIMER_NO_CLIENT_INDEX + 1;
-  for (std::vector<PVRDemoTimer>::iterator it = m_timers.begin() ; it != m_timers.end() ; it++)
+  for (std::vector<PVRLifeSatTimer>::iterator it = m_timers.begin() ; it != m_timers.end() ; it++)
   {
-    PVRDemoTimer &timer = *it;
+    PVRLifeSatTimer &timer = *it;
 
     PVR_TIMER xbmcTimer;
     memset(&xbmcTimer, 0, sizeof(PVR_TIMER));
